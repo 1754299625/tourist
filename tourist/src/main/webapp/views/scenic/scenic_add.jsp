@@ -23,7 +23,11 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/js/plugins/layui/css/layui.css" media="all"/>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/assets/js/plugins/font-awesome/css/font-awesome.min.css">
-
+    <style type="text/css">
+        input.layui-input.layui-unselect {width:190px}
+        div.layui-unselect.layui-form-select.layui-form-selected{width: 190px;margin-left: 110px;}
+        i.layui-edge{left: 1000px;}
+    </style>
 </head>
 
 <body>
@@ -33,7 +37,7 @@
     </fieldset>
 
     <form class="layui-form" id="form1" action="${pageContext.request.contextPath}/scenic/insertScenic.do">
-        <input type="hidden" name="status" value="0" id="status1"> 　
+        <input type="hidden" name="status" value="关闭" id="status1"> 　
         <div class="layui-form-item">
             <label class="layui-form-label">景区名称</label>
             <div class="layui-input-inline">
@@ -60,7 +64,7 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">舒适度最大阈值</label>
+            <label class="layui-form-label">舒适度阈值</label>
             <div class="layui-input-inline">
                 <input type="text" name="max_di" value="${sc.max_di}" lay-verify="di" placeholder="请输入最大阈值"
                        autocomplete="off"
@@ -81,24 +85,27 @@
             <label class="layui-form-label">开放状态</label>
             <div class="layui-input-inline">
 
-                <c:if test="${sc.status == 0}">
-                    <input type="checkbox" name="status" lay-skin="switch" lay-filter="switchTest" lay-text="开放|关闭"
-                           value="0" id="check1">
-                </c:if>
-                <c:if test="${sc.status=='开放'}">
-                    <input type="checkbox" checked name="status" lay-skin="switch" lay-filter="switchTest" value="1"
-                           lay-text="开放|关闭" title="开关" id="check1">
-                </c:if>
-                <c:if test="${sc.status=='关闭'}">
-                    <input type="checkbox" checked name="status" lay-skin="switch" lay-filter="switchTest" value="1"
-                           lay-text="开放|关闭" title="开关" id="check1">
-                </c:if>
+                <input type="checkbox" lay-skin="switch" lay-filter="switchTest" lay-text="开放|关闭"
+                        id="check1">
+
+<%--                <c:if test="${sc.status == '开放'}">--%>
+<%--                    <input type="checkbox" name="status" lay-skin="switch" lay-filter="switchTest" lay-text="开放|关闭"--%>
+<%--                           value="开放" id="check1">--%>
+<%--                </c:if>--%>
+<%--                <c:if test="${sc.status=='开放'}">--%>
+<%--                    <input type="checkbox" checked name="status" lay-skin="switch" lay-filter="switchTest" value="开放"--%>
+<%--                           lay-text="开放|关闭" title="开关" id="check1">--%>
+<%--                </c:if>--%>
+<%--                <c:if test="${sc.status=='关闭'}">--%>
+<%--                    <input type="checkbox" checked name="status" lay-skin="switch" lay-filter="switchTest" value="关闭"--%>
+<%--                           lay-text="开放|关闭" title="开关" id="check1">--%>
+<%--                </c:if>--%>
 
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">客流最大承载量</label>
+            <label class="layui-form-label">客流承载量</label>
             <div class="layui-input-inline">
                 <input type="text" name="max_people" value="${max_people}" lay-verify="number" placeholder="请输入最大承载量"
                        autocomplete="off"
@@ -106,7 +113,7 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">最大车流量</label>
+            <label class="layui-form-label">车流承载量</label>
             <div class="layui-input-inline">
                 <input type="text" name="max_car" value="${sc.max_car}" lay-verify="number" placeholder="请输入最大车流量"
                        autocomplete="off"
@@ -148,19 +155,23 @@
 
         //监听提交
         form.on('submit(demo1)', function (data) {
-
-
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
         });
 
         form.on('switch(switchTest)', function (data) {
-            console.log(data.elem); //得到checkbox原始DOM对象
-            console.log(data.elem.checked); //开关是否开启，true或者false
-            console.log(data.value); //开关value值，也可以通过data.elem.value得到
-            console.log(data.othis); //得到美化后的DOM对象
+            // console.log(data.elem); //得到checkbox原始DOM对象
+            // console.log(data.elem.checked); //开关是否开启，true或者false
+            // console.log(data.value); //开关value值，也可以通过data.elem.value得到
+            // console.log(data.othis); //得到美化后的DOM对象
             //alert(data.value);
             //alert(data.elem.checked);
-            a = 1 - data.value;
-            $("#check1").val(a);
+            // a = 1 - data.value;
+            if(data.elem.checked){
+                $("#check1").val('开放');
+            }else{
+                $("#check1").val('关闭');
+            }
             //alert($("#check1").val());
             $('#status1').val($('#check1').val());
 

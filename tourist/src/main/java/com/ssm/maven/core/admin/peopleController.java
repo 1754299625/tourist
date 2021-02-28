@@ -109,7 +109,7 @@ public class peopleController {
     public @ResponseBody
     PageBean<ScenicspotCustom> getpeopleInfor(Integer pageIndex, Integer pageSize, String code, String startday, String endday) throws Exception {
         //System.out.println("页数"+pageIndex+pageSize);
-        System.out.println(code + " " + startday + " " + endday);
+//        System.out.println(code + " " + startday + " " + endday);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date a1 = null;
         Date a2 = null;

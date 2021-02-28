@@ -33,6 +33,16 @@ public class ScenicspotCustom extends Scenicspot {
 
     private String scenictype_name;
 
+    private Integer pepoleCount;
+
+    public Integer getPepoleCount() {
+        return pepoleCount;
+    }
+
+    public void setPepoleCount(Integer pepoleCount) {
+        this.pepoleCount = pepoleCount;
+    }
+
     public String getScenictype_name() {
         return scenictype_name;
     }

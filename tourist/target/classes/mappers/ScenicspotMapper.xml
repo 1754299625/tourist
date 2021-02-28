@@ -138,7 +138,7 @@
                 #{scenictype,jdbcType=VARCHAR},
             </if>
             <if test="max_di != null">
-                #{max_di,jdbcType=},
+                #{max_di,jdbcType=DOUBLE},
             </if>
         </trim>
     </insert>
@@ -288,14 +288,17 @@
     </update>
 
     <select id="getScenicspotAndDay" resultType="com.ssm.maven.core.entity.ScenicspotCustom">
-        SELECT DISTINCT scenicspot.*, a.enter_day from scenicspot,tourist a , tourist b WHERE scenicspot.id =
+/*        SELECT DISTINCT scenicspot.*,COUNT(a.id) pepoleCount, a.enter_day from scenicspot,tourist a , tourist b WHERE scenicspot.id =
         a.science_id and a.science_id != b.science_id AND a.del_flag = 1 AND b.del_flag = 1 ORDER by
-        scenicname,a.enter_day DESC
+        scenicname,a.enter_day DESC*/
+SELECT  a.*,COUNT(b.id) pepoleCount, b.enter_day FROM tourist b LEFT JOIN scenicspot a
+ON a.id = b.science_id WHERE a.del_flag = 1 and b.del_flag = 1 GROUP BY b.enter_day,a.scenicname ORDER BY a.scenicname, b.enter_day DESC
     </select>
+
 
     <select id="getpeopleInfor" parameterType="com.ssm.maven.core.entity.ScenicspotCustom"
             resultType="com.ssm.maven.core.entity.ScenicspotCustom">
-        SELECT DISTINCT tourist.enter_day ,scenicspot.* FROM scenicspot,tourist WHERE scenicspot.code = #{code}
+<!--        SELECT DISTINCT tourist.enter_day,COUNT(tourist.id) pepoleCount ,scenicspot.* FROM scenicspot,tourist WHERE scenicspot.code = #{code}
         <if test="enter_day != null and enter_day !='' ">
             <![CDATA[   AND DATE_FORMAT(tourist.enter_day, '%Y-%m-%d-%h-%I-%S')>=  DATE_FORMAT(#{enter_day}, '%Y-%m-%d-%h-%I-%S')   ]]>
         </if>
@@ -304,8 +307,22 @@
             <![CDATA[   AND DATE_FORMAT(tourist.enter_day, '%Y-%m-%d-%h-%I-%S')<=  DATE_FORMAT(#{end_day}, '%Y-%m-%d-%h-%I-%S')   ]]>
         </if>
         AND tourist.science_id = scenicspot.id AND scenicspot.del_flag = 1 AND tourist.del_flag = 1 ORDER BY
-        tourist.enter_day DESC
+        tourist.enter_day DESC-->
+
+        SELECT  a.*,COUNT(b.id) pepoleCount, b.enter_day FROM tourist b LEFT JOIN scenicspot a
+        ON a.id = b.science_id WHERE a.del_flag = 1 AND b.del_flag = 1
+        AND a.code = #{code}
+        <if test="enter_day != null and enter_day !='' ">
+            <![CDATA[   AND DATE_FORMAT(b.enter_day, '%Y-%m-%d-%h-%I-%S')>=  DATE_FORMAT(#{enter_day}, '%Y-%m-%d-%h-%I-%S')   ]]>
+        </if>
+
+        <if test="end_day != null and end_day !='' ">
+            <![CDATA[   AND DATE_FORMAT(b.enter_day, '%Y-%m-%d-%h-%I-%S')<=  DATE_FORMAT(#{end_day}, '%Y-%m-%d-%h-%I-%S')   ]]>
+        </if>
+        GROUP BY b.enter_day,a.scenicname ORDER BY a.scenicname, b.enter_day DESC
+
     </select>
+
 
     <insert id="insertScenicspotList" useGeneratedKeys="true" parameterType="com.ssm.maven.core.entity.Scenicspot">
         <selectKey resultType="long" keyProperty="id" order="AFTER">

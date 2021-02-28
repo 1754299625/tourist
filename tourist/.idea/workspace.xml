@@ -9,7 +9,45 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="40c60f70-58ab-4ed5-a0b5-96bd976df3fd" name="Default Changelist" comment="提交3" />
+    <list default="true" id="40c60f70-58ab-4ed5-a0b5-96bd976df3fd" name="Default Changelist" comment="2021.2.27初版">
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/assets/images/background.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssm/maven/core/admin/ScenicController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssm/maven/core/admin/ScenicController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssm/maven/core/admin/peopleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssm/maven/core/admin/peopleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssm/maven/core/entity/ScenicspotCustom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssm/maven/core/entity/ScenicspotCustom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j-test.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/ScenicspotMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/ScenicspotMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/css/admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/dist/views/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/dist/views/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/people.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/people.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/scenic/scenic_add.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/scenic/scenic_add.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/scenic/scenic_edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/scenic/scenic_edit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/scenicarea.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/scenicarea.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/scenictype/scenictypefactor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/scenictype/scenictypefactor.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/tourist/touristInfor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/tourist/touristInfor.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ssm/maven/core/admin/ScenicController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ssm/maven/core/admin/ScenicController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ssm/maven/core/admin/peopleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ssm/maven/core/admin/peopleController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ssm/maven/core/entity/ScenicspotCustom.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ssm/maven/core/entity/ScenicspotCustom.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/log4j-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/log4j-test.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mappers/ScenicspotMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mappers/ScenicspotMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/com/ssm/maven/core/admin/ScenicController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/com/ssm/maven/core/admin/ScenicController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/com/ssm/maven/core/admin/peopleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/com/ssm/maven/core/admin/peopleController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/com/ssm/maven/core/entity/ScenicspotCustom.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/com/ssm/maven/core/entity/ScenicspotCustom.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/log4j-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/log4j-test.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/mappers/ScenicspotMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/mappers/ScenicspotMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/assets/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/assets/css/admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/dist/views/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/dist/views/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/views/people.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/views/people.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/views/scenic/scenic_add.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/views/scenic/scenic_add.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/views/scenic/scenic_edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/views/scenic/scenic_edit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/views/scenicarea.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/views/scenicarea.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/views/scenictype/scenictypefactor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/views/scenictype/scenictypefactor.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/views/tourist/touristInfor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/views/tourist/touristInfor.jsp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,7 +132,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp/assets/images" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -107,6 +145,11 @@
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.22528736" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\works\git\tourist\src\main\webapp\assets\images" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="Applet">
@@ -150,7 +193,8 @@
     </configuration>
     <configuration name="Tomcat 9.0.21" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.21" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="BROWSER_ID" value="b2a9dca7-9d0b-4e1e-98a8-afb19c1328d2" />
-      <option name="UPDATING_POLICY" value="restart-server" />
+      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
+      <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
       <deployment>
         <artifact name="tourist:war exploded">
           <settings>
@@ -264,6 +308,7 @@
       <workItem from="1614393742354" duration="2000" />
       <workItem from="1614393759342" duration="636000" />
       <workItem from="1614394436691" duration="394000" />
+      <workItem from="1614394851703" duration="25608000" />
     </task>
     <task id="LOCAL-00001" summary="提交3">
       <created>1614182752021</created>
@@ -272,7 +317,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614182752021</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="2021.2.27初版">
+      <created>1614396220778</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1614396220778</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -329,7 +381,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="提交3" />
-    <option name="LAST_COMMIT_MESSAGE" value="提交3" />
+    <MESSAGE value="2021.2.27初版" />
+    <option name="LAST_COMMIT_MESSAGE" value="2021.2.27初版" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -93,6 +93,14 @@ public class ScenicController {
         return pb;
     }
 
+    /**
+     * 添加景区
+     * @param scenicspot
+     * @param modelmap
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("insertScenic")
     public ModelAndView getScenicAdd(Scenicspot scenicspot, ModelMap modelmap, HttpServletRequest request) throws Exception {
         System.out.println(scenicspot.toString());
@@ -101,6 +109,9 @@ public class ScenicController {
         String str = "error";
         HttpSession session = request.getSession();
         SysUser user = (SysUser) session.getAttribute("currentUser");
+//        if(null == user){
+//            mv.setViewName("login");
+//        }
         //System.out.println(user.toString());
         scenicspot.setCreator(user.getId());
         scenicspot.setUpdator(user.getId());
@@ -111,7 +122,7 @@ public class ScenicController {
         scenicspot.setCreate_time(new Date());
         scenicspot.setUpdate_time(new Date());
         scenicspot.setDel_flag(1);
-        //System.out.println("进入插入!");
+        System.out.println("进入插入!");
         //System.out.println(scenicspot.toString());
         List<Scenicspot> list = scenicService.getScenicspotByName(1, 10, scenicspot.getScenicname());
         if (list.isEmpty()) {

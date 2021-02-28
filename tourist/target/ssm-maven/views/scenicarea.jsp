@@ -83,7 +83,7 @@
 <script type="text/html" id="tpl">
     {{# layui.each(d.list, function(index, item){ }}
     <tr>
-        <td>{{ item.code }}</td>
+        <td>{{ item.id }}</td>
         <td>{{ item.scenicname }}</td>
         <td>{{ item.address }}</td>
         <td>{{ item.scenictype}}</td>
@@ -293,6 +293,10 @@
                 cancel: function (index, layero) {
                     $('.admin-table-page').show();
                     $('#searchAll').click();
+                },
+                end:function() {// 结束刷新表格
+                    $('.admin-table-page').show();
+                    $('#searchAll').click();
                 }
             });
 
@@ -327,7 +331,8 @@
                     $('#searchAll').click();
 
                 },
-                end:function() {
+                end:function() {// 结束刷新表格
+                    $('.admin-table-page').show();
                     $('#searchAll').click();
                 }
             });

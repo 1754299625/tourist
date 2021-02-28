@@ -21,7 +21,7 @@
 
     <blockquote class="layui-elem-quote">
         <div class="layui-form-pane">
-            <div class="layui-form-item">
+            <div class="layui-form-item" style="display: inline-block;float: left;">
                 <label class="layui-form-label">时间范围</label>
                 <div class="layui-input-inline">
                     <input class="layui-input" placeholder="开始日期" id="LAY_demorange_s">
@@ -41,21 +41,21 @@
 
             </div>
 
-            <div class="layui-form-item">
+            <div class="layui-form-item" style="display: inline-block;">
                 <span>&nbsp;</span>
                 <a href="javascript:;" class="layui-btn layui-btn-small" id="search">
                     <i class="layui-icon">&#xe615;</i> 搜索景区
                 </a>
-                <a href="javascript:;" class="layui-btn layui-btn-small" id="searchAll">
-                    <i class="layui-icon">&#xe615;</i> 搜索全部景区
-                </a>
-                <input type="file" name="file1" lay-type="file" class="layui-upload-file" lay-title="导入文件" id="test">
+<%--                <a href="javascript:;" class="layui-btn layui-btn-small" id="searchAll">--%>
+<%--                    <i class="layui-icon">&#xe615;</i> 搜索全部景区--%>
+<%--                </a>--%>
+                <input type="file" name="file1" lay-type="file" class="layui-upload-file" lay-title="导入客流文件" id="test">
                 <a href="javascript:;" class="layui-btn layui-btn-small" id="exportAll">
                     <i class="layui-icon">&#xe61d;</i> 导出详情
                 </a>
 
                 <a href="javascript:;" class="layui-btn layui-btn-small" id="export">
-                    <i class="layui-icon">&#xe62a;</i> 导出汇总
+                    <i class="layui-icon">&#xe62a;</i> 导出客流列表
                 </a>
             </div>
 
@@ -72,7 +72,8 @@
                     <th>景区名称</th>
                     <th>景区地址</th>
                     <th>日期</th>
-                    <th>承载量</th>
+                    <th>客流最大承载量</th>
+                    <th>当前客流量</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -96,6 +97,8 @@
         <td>{{ item.address }}</td>
         <td>{{ item.enter_day}}</td>
         <td>{{ item.max_people }}</td>
+        <td>{{ item.pepoleCount }}</td>
+
         <td>
             <a href="javascript:;" data-name="{{item.enter_day}}" data-id="{{ item.code }}" data-opt="edit"
                class="layui-btn layui-btn-mini" onclick="getTouristInfor(this)" style="z-index:-1">详情</a>
@@ -124,24 +127,25 @@
             layer.msg('${Msg}');
             //alert('${Msg}');
         }
-
+        // var str = $('#list').val();
         paging.init({
             openWait: true,
             url: '${pageContext.request.contextPath}/people/getScenicpeopleAll.do', //地址
             elem: '#content', //内容容器
             params: { //发送到服务端的参数
+                // code: str
             },
             type: 'GET',
             tempElem: '#tpl', //模块容器
             pageConfig: { //分页参数配置
                 elem: '#paged', //分页容器
-                pageSize: 5//分页大小
+                pageSize: 10//分页大小
             },
             success: function () { //渲染成功的回调
                 //alert('渲染成功');
             },
             fail: function (msg) { //获取数据失败的回调
-                alert('获取数据失败')
+                // alert('获取数据失败')
             },
             complate: function () { //完成的回调
                 //alert('处理完成');
@@ -218,7 +222,7 @@
                 //alert(str);
                 //alert(a1);
                 //alert(a2);
-                parent.layer.msg(str)
+                // parent.layer.msg(str)
                 paging.init({
                     openWait: true,
                     url: '${pageContext.request.contextPath}/people/getpeopleInfor.do', //地址
@@ -232,7 +236,7 @@
                     tempElem: '#tpl', //模块容器
                     pageConfig: { //分页参数配置
                         elem: '#paged', //分页容器
-                        pageSize: 5 //分页大小
+                        pageSize: 10 //分页大小
                     },
                     success: function () { //渲染成功的回调
                         // alert('渲染成功');
@@ -281,7 +285,7 @@
                     tempElem: '#tpl', //模块容器
                     pageConfig: { //分页参数配置
                         elem: '#paged', //分页容器
-                        pageSize: 5 //分页大小
+                        pageSize: 10 //分页大小
                     },
                     success: function () { //渲染成功的回调
                         // alert('渲染成功');
@@ -342,7 +346,7 @@
                 data: {code: code, enter_day: day},
                 dataType: "text",
                 success: function (data) {
-                    layer.msg(data)
+                    // layer.msg(data)
                     $('#searchAll').click();
                     //var checkValue=$("#list").val();
                     //alert(checkValue);

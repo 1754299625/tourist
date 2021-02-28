@@ -66,11 +66,11 @@
             <table class="layui-table admin-table">
                 <thead>
                 <tr>
-                    <th>景区编号</th>
-                    <th>景区名称</th>
-                    <th>景区地址</th>
-                    <th>日期</th>
-                    <th>承载量</th>
+<%--                    <th>景区编号</th>--%>
+<%--                    <th>景区名称</th>--%>
+<%--                    <th>景区地址</th>--%>
+<%--                    <th>日期</th>--%>
+<%--                    <th>承载量</th>--%>
                     <th>游客编号</th>
                     <th>游客类型</th>
                     <th>进入时间</th>
@@ -93,18 +93,18 @@
 <script type="text/html" id="tpl">
     {{# layui.each(d.list, function(index, item){ }}
     <tr>
-        <td>{{ item.code }}</td>
-        <td>{{ item.scenicname }}</td>
-        <td>{{ item.address }}</td>
-        <td>{{ item.enter_day}}</td>
-        <td>{{ item.max_people }}</td>
+<%--        <td>{{ item.code }}</td>--%>
+<%--        <td>{{ item.scenicname }}</td>--%>
+<%--        <td>{{ item.address }}</td>--%>
+<%--        <td>{{ item.enter_day}}</td>--%>
+<%--        <td>{{ item.max_people }}</td>--%>
         <td>{{ item.tourist_code}}</td>
         <td>
             {{# if(item.tourist_type == 1){ }}
-            游客
+            散客
             {{# } }}
             {{# if(item.tourist_type == 2){ }}
-            会员
+            团体
             {{# } }}
         </td>
         <td>{{ item.enter_time}}</td>

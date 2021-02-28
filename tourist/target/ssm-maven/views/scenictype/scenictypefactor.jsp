@@ -29,7 +29,7 @@
 
     <blockquote class="layui-elem-quote">
         <a href="javascript:;" class="layui-btn layui-btn-small" id="add" onclick="addScenictypefactor(this)">
-            <i class="layui-icon">&#xe608;</i> 添加景区类型因子
+            <i class="layui-icon">&#xe608;</i> 类型因子
         </a>
     </blockquote>
     <fieldset class="layui-elem-field">
