@@ -4,6 +4,9 @@ package com.ssm.maven.core.admin;
 import com.ssm.maven.core.entity.*;
 import com.ssm.maven.core.service.ScenicService;
 import com.ssm.maven.core.service.TouristService;
+import com.ssm.maven.core.util.DateUtil;
+import org.apache.commons.lang.time.DateFormatUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,41 +58,73 @@ public class peopleController {
         return mv;
     }
 
+    /**
+     * 游客信息修改页面，游客信息获取
+     * @param model
+     * @param tourist_code
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("getTouristedit")
     public ModelAndView getTouristedit(ModelMap model, String tourist_code) throws Exception {
-        // System.out.println("进入客流信息修改！");
         ModelAndView mv = new ModelAndView();
         TouristCustom touristCustom = new TouristCustom();
         touristCustom.setTourist_code(tourist_code);
         List<TouristCustom> list = touristService.searchTouristInfor(1, 1, touristCustom);
-        // System.out.println(list.isEmpty());
-        System.out.println(list.get(0).toString());
-        if (!list.isEmpty()) {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String enter_time = simpleDateFormat.format(list.get(0).getEnter_time());
-            String leave_time = simpleDateFormat.format(list.get(0).getLeave_time());
-            model.put("tourist_type", list.get(0).getTourist_type());
-            model.put("enter_time", enter_time);
-            model.put("leave_time", leave_time);
-            model.put("tourist_code", tourist_code);
-        }
 
+        if (!list.isEmpty()) {
+            TouristCustom tourist = list.get(0);
+            try {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String enter_time = simpleDateFormat.format(tourist.getEnter_time());
+                String leave_time = simpleDateFormat.format(tourist.getLeave_time());
+                model.put("enter_time", enter_time);
+                model.put("leave_time", leave_time);
+                model.put("tourist", tourist);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+
+//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            simpleDateFormat.format(list.get(0).getEnter_time());
+//            String leave_time = simpleDateFormat.format(list.get(0).getLeave_time());
+
+//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            String enter_time = simpleDateFormat.format(list.get(0).getEnter_time());
+//            String leave_time = simpleDateFormat.format(list.get(0).getLeave_time());
+//            model.put("tourist_type", list.get(0).getTourist_type());
+//            model.put("enter_time", enter_time);
+//            model.put("leave_time", leave_time);
+//            model.put("tourist_code", tourist_code);
+        }
         mv.setViewName("views/tourist/tourist_edit");
         return mv;
     }
 
+    /**
+     * 游客信息修改
+     * @param tourist_code
+     * @param enter_time
+     * @param leave_time
+     * @param tourist_type
+     * @return
+     */
     @RequestMapping("updateByTouristCode")
     public @ResponseBody
-    String updateByTouristCode(String tourist_code, String enter_time, String leave_time, Integer tourist_type) {
-        System.out.println(tourist_code + "进入更新！" + tourist_type);
+    String updateByTouristCode(String tourist_code, String enter_time, String leave_time, Integer tourist_type, Integer sex, Integer age, String regione) throws Exception {
+//        System.out.println(tourist_code + "进入更新！" + tourist_type);
         Tourist tourist = new TouristCustom();
         String msg = "更新成功！";
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            SimpleDateFormat s2 = new SimpleDateFormat("HH");
+//            SimpleDateFormat s2 = new SimpleDateFormat("HH");
             tourist.setTourist_code(tourist_code);
             tourist.setTourist_type(tourist_type);
-            tourist.setTime_hour(Integer.parseInt(s2.format(enter_time)));
+            tourist.setSex(sex);
+            tourist.setAge(age);
+            tourist.setRegione(regione);
+//            tourist.setTime_hour(Integer.parseInt(s2.format(enter_time)));
             tourist.setEnter_time(simpleDateFormat.parse(enter_time));
             tourist.setLeave_time(simpleDateFormat.parse(leave_time));
             touristService.updateTouristInfor(tourist);
@@ -154,7 +189,7 @@ public class peopleController {
     @RequestMapping("deleteByTouristCode")
     public @ResponseBody
     String deleteByTouristCode(String tourist_code) {
-        System.out.println(tourist_code + "进入删除！");
+//        System.out.println(tourist_code + "进入删除！");
         String msg = "删除成功！";
         try {
             TouristCustom touristCustom = new TouristCustom();
@@ -170,27 +205,21 @@ public class peopleController {
         return msg;
     }
 
+    /**
+     * 客流详情
+     * @param model
+     * @param code
+     * @param day
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("getTouristInfor")
     public ModelAndView getTouristInfor(ModelMap model, String code, String day) throws Exception {
-        // System.out.println("进入客流");
-        /*
-        touristCustom.setCode(code);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date a1 = simpleDateFormat.parse(day);
-        touristCustom.setEnter_day(a1);
-        List<TouristCustom> list = touristService.getTouristList(touristCustom);
-        model.put("list",list);
-        model.put("code",code);
-        model.put("day",day);
-        */
-        //System.out.println(code+" "+day);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date a1 = simpleDateFormat.parse(day);
         TouristCustom touristCustom = new TouristCustom();
-        //System.out.println(a1);
         touristCustom.setCode(code);
         touristCustom.setEnter_day(a1);
-        //System.out.println(touristCustom.toString());
         List<TouristCustom> list = touristService.getTouristList(touristCustom);
         model.put("list", list);
         model.put("code", code);
@@ -201,13 +230,21 @@ public class peopleController {
         return mv;
     }
 
-
+    /**
+     * 查询某景区某天的游客信息
+     * @param pageIndex
+     * @param pageSize
+     * @param code
+     * @param day
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("getAllTouristInfor")
     public @ResponseBody
     PageBean<TouristCustom> getTouristInfor(Integer pageIndex, Integer pageSize, String code, String day) throws Exception {
         //System.out.println("页数"+pageIndex+pageSize);
         TouristCustom touristCustom = new TouristCustom();
-        System.out.println("日期：" + day);
+//        System.out.println("日期：" + day);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date a1 = simpleDateFormat.parse(day);
         touristCustom.setCode(code);
@@ -224,7 +261,7 @@ public class peopleController {
     PageBean<TouristCustom> searchTouristInforTime(Integer pageIndex, Integer pageSize, String enter_time,
                                                    String leave_time, Integer science_id, String enter_day) throws Exception {
         //System.out.println("页数"+pageIndex+pageSize);
-        System.out.println(science_id);
+//        System.out.println(science_id);
         TouristCustom touristCustom = new TouristCustom();
         touristCustom.setScience_id(science_id);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -242,9 +279,9 @@ public class peopleController {
             touristCustom.setEnter_day(a3);
         }
         List<TouristCustom> list = touristService.searchTouristInfor(pageIndex, pageSize, touristCustom);
-        for (TouristCustom tc : list) {
-            System.out.println(tc.toString());
-        }
+//        for (TouristCustom tc : list) {
+//            System.out.println(tc.toString());
+//        }
         PageBean<TouristCustom> pb = new PageBean<TouristCustom>(list);
         return pb;
     }
@@ -262,9 +299,9 @@ public class peopleController {
         }
 
         List<TouristCustom> list = touristService.searchTouristInfor(pageIndex, pageSize, touristCustom);
-        for (TouristCustom tc : list) {
-            System.out.println(tc.toString());
-        }
+//        for (TouristCustom tc : list) {
+//            System.out.println(tc.toString());
+//        }
         PageBean<TouristCustom> pb = new PageBean<TouristCustom>(list);
         return pb;
     }
@@ -278,9 +315,9 @@ public class peopleController {
         touristCustom.setTourist_code(tourist_code);
         SimpleDateFormat s2 = new SimpleDateFormat("yyyy-MM-dd");
         List<TouristCustom> list = touristService.searchTouristInfor(pageIndex, pageSize, touristCustom);
-        for (TouristCustom tc : list) {
-            System.out.println(tc.toString());
-        }
+//        for (TouristCustom tc : list) {
+//            System.out.println(tc.toString());
+//        }
         PageBean<TouristCustom> pb = new PageBean<TouristCustom>(list);
         return pb;
     }

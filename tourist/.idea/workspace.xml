@@ -9,44 +9,40 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="40c60f70-58ab-4ed5-a0b5-96bd976df3fd" name="Default Changelist" comment="2021.2.27初版">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/assets/images/background.png" afterDir="false" />
+    <list default="true" id="40c60f70-58ab-4ed5-a0b5-96bd976df3fd" name="Default Changelist" comment="2021.2.28">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssm/maven/core/admin/ScenicController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssm/maven/core/admin/ScenicController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssm/maven/core/admin/peopleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssm/maven/core/admin/peopleController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssm/maven/core/entity/ScenicspotCustom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssm/maven/core/entity/ScenicspotCustom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssm/maven/core/entity/Tourist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssm/maven/core/entity/Tourist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssm/maven/core/entity/TouristCustom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssm/maven/core/entity/TouristCustom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/jdbc-druid-config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/jdbc-druid-config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/log4j-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j-test.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/ScenicspotMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/ScenicspotMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/css/admin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/dist/views/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/dist/views/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/TouristMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/TouristMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/views/people.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/people.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/scenic/scenic_add.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/scenic/scenic_add.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/scenic/scenic_edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/scenic/scenic_edit.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/scenicarea.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/scenicarea.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/scenictype/scenictypefactor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/scenictype/scenictypefactor.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/views/tourist/touristInfor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/tourist/touristInfor.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ssm/maven/core/admin/ScenicController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ssm/maven/core/admin/ScenicController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/tourist/tourist_edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/tourist/tourist_edit.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ssm/maven/core/admin/peopleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ssm/maven/core/admin/peopleController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ssm/maven/core/entity/ScenicspotCustom.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ssm/maven/core/entity/ScenicspotCustom.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ssm/maven/core/entity/Tourist.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ssm/maven/core/entity/Tourist.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ssm/maven/core/entity/TouristCustom.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ssm/maven/core/entity/TouristCustom.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jdbc-druid-config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/jdbc-druid-config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/log4j-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/log4j-test.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mappers/ScenicspotMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mappers/ScenicspotMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ssm-maven/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/com/ssm/maven/core/admin/ScenicController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/com/ssm/maven/core/admin/ScenicController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mappers/TouristMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mappers/TouristMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/com/ssm/maven/core/admin/peopleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/com/ssm/maven/core/admin/peopleController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/com/ssm/maven/core/entity/ScenicspotCustom.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/com/ssm/maven/core/entity/ScenicspotCustom.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/com/ssm/maven/core/entity/Tourist.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/com/ssm/maven/core/entity/Tourist.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/com/ssm/maven/core/entity/TouristCustom.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/com/ssm/maven/core/entity/TouristCustom.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/jdbc-druid-config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/jdbc-druid-config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/log4j-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/log4j-test.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/mappers/ScenicspotMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/mappers/ScenicspotMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ssm-maven/assets/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/assets/css/admin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ssm-maven/dist/views/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/dist/views/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/mappers/TouristMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/classes/mappers/TouristMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/WEB-INF/web.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/ssm-maven/views/people.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/views/people.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ssm-maven/views/scenic/scenic_add.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/views/scenic/scenic_add.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ssm-maven/views/scenic/scenic_edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/views/scenic/scenic_edit.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ssm-maven/views/scenicarea.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/views/scenicarea.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ssm-maven/views/scenictype/scenictypefactor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/views/scenictype/scenictypefactor.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/ssm-maven/views/tourist/touristInfor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/views/tourist/touristInfor.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ssm-maven/views/tourist/tourist_edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ssm-maven/views/tourist/tourist_edit.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +128,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp/assets/images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -141,13 +137,15 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.22528736" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\works\git\tourist\src\main\webapp" />
+      <recent name="D:\works\git\tourist\src\main\webapp\WEB-INF" />
       <recent name="D:\works\git\tourist\src\main\webapp\assets\images" />
     </key>
   </component>
@@ -308,7 +306,7 @@
       <workItem from="1614393742354" duration="2000" />
       <workItem from="1614393759342" duration="636000" />
       <workItem from="1614394436691" duration="394000" />
-      <workItem from="1614394851703" duration="25608000" />
+      <workItem from="1614394851703" duration="39087000" />
     </task>
     <task id="LOCAL-00001" summary="提交3">
       <created>1614182752021</created>
@@ -324,7 +322,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614396220778</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="2021.2.28">
+      <created>1614505134003</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1614505134003</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -382,7 +387,19 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="提交3" />
     <MESSAGE value="2021.2.27初版" />
-    <option name="LAST_COMMIT_MESSAGE" value="2021.2.27初版" />
+    <MESSAGE value="2021.2.28" />
+    <option name="LAST_COMMIT_MESSAGE" value="2021.2.28" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/ssm/maven/core/admin/peopleController.java</url>
+          <line>75</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

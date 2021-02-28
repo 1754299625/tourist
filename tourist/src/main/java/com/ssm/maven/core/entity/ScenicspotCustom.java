@@ -28,7 +28,6 @@ public class ScenicspotCustom extends Scenicspot {
     }
 
     @JSONField(format = "yyyy-MM-dd")
-
     private Date end_day;
 
     private String scenictype_name;

@@ -46,9 +46,9 @@
                 <a href="javascript:;" class="layui-btn layui-btn-small" id="search">
                     <i class="layui-icon">&#xe615;</i> 搜索景区
                 </a>
-<%--                <a href="javascript:;" class="layui-btn layui-btn-small" id="searchAll">--%>
-<%--                    <i class="layui-icon">&#xe615;</i> 搜索全部景区--%>
-<%--                </a>--%>
+                <a href="javascript:;" class="layui-btn layui-btn-small" id="searchAll">
+                    <i class="layui-icon">&#xe615;</i> 搜索全部景区
+                </a>
                 <input type="file" name="file1" lay-type="file" class="layui-upload-file" lay-title="导入客流文件" id="test">
                 <a href="javascript:;" class="layui-btn layui-btn-small" id="exportAll">
                     <i class="layui-icon">&#xe61d;</i> 导出详情
@@ -219,10 +219,7 @@
                     layer = layui.layer, //获取当前窗口的layer对象
                     form = layui.form();
                 var str = $('#list').val();
-                //alert(str);
-                //alert(a1);
-                //alert(a2);
-                // parent.layer.msg(str)
+
                 paging.init({
                     openWait: true,
                     url: '${pageContext.request.contextPath}/people/getpeopleInfor.do', //地址

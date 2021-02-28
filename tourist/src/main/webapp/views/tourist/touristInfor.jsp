@@ -61,7 +61,7 @@
 
     </blockquote>
     <fieldset class="layui-elem-field">
-        <legend>客流详细信息</legend>
+        <legend>景区客流详细信息</legend>
         <div class="layui-field-box layui-form">
             <table class="layui-table admin-table">
                 <thead>
@@ -71,7 +71,10 @@
 <%--                    <th>景区地址</th>--%>
 <%--                    <th>日期</th>--%>
 <%--                    <th>承载量</th>--%>
-                    <th>游客编号</th>
+                    <th>编号</th>
+                    <th>性别</th>
+                    <th>年龄</th>
+                    <th>所属地区</th>
                     <th>游客类型</th>
                     <th>进入时间</th>
                     <th>离开时间</th>
@@ -100,11 +103,27 @@
 <%--        <td>{{ item.max_people }}</td>--%>
         <td>{{ item.tourist_code}}</td>
         <td>
+            {{# if(item.sex == 0){ }}
+            男
+            {{# } }}
+            {{# if(item.sex == 1){ }}
+            女
+            {{# } }}
+        </td>
+        <td>{{ item.age}}</td>
+        <td>{{ item.regione}}</td>
+        <td>
             {{# if(item.tourist_type == 1){ }}
             散客
             {{# } }}
             {{# if(item.tourist_type == 2){ }}
             团体
+            {{# } }}
+            {{# if(item.tourist_type == 3){ }}
+            二销
+            {{# } }}
+            {{# if(item.tourist_type == 4){ }}
+            电商
             {{# } }}
         </td>
         <td>{{ item.enter_time}}</td>
@@ -144,7 +163,7 @@
             tempElem: '#tpl', //模块容器
             pageConfig: { //分页参数配置
                 elem: '#paged', //分页容器
-                pageSize: 5//分页大小
+                pageSize: 10//分页大小
             },
             success: function () { //渲染成功的回调
                 //alert('渲染成功');
@@ -240,7 +259,7 @@
                     tempElem: '#tpl', //模块容器
                     pageConfig: { //分页参数配置
                         elem: '#paged', //分页容器
-                        pageSize: 5 //分页大小
+                        pageSize: 10 //分页大小
                     },
                     success: function () { //渲染成功的回调
                         // alert('渲染成功');
@@ -294,7 +313,7 @@
                     tempElem: '#tpl', //模块容器
                     pageConfig: { //分页参数配置
                         elem: '#paged', //分页容器
-                        pageSize: 5 //分页大小
+                        pageSize: 10 //分页大小
                     },
                     success: function () { //渲染成功的回调
                         // alert('渲染成功');
@@ -345,7 +364,7 @@
                     tempElem: '#tpl', //模块容器
                     pageConfig: { //分页参数配置
                         elem: '#paged', //分页容器
-                        pageSize: 5 //分页大小
+                        pageSize: 10 //分页大小
                     },
                     success: function () { //渲染成功的回调
                         // alert('渲染成功');
@@ -412,11 +431,11 @@
             var code = e.getAttribute("data-id");
 
             layer.open({
-                title: '修改客流信息',
+                title: '修改游客信息',
                 maxmin: true,
                 type: 2,
                 content: '${pageContext.request.contextPath}/people/getTouristedit.do?tourist_code=' + code,
-                area: ['100%', '100%'],
+                area: ['35%', '55%'],
                 resize: 'true',
                 moveOut: 'true',
                 success: function (layero, index) {
@@ -424,6 +443,10 @@
                     $('.admin-table-page').hide();
                 },
                 cancel: function (index, layero) {
+                    $('.admin-table-page').show();
+                    $('#searchAll').click();
+                },
+                end:function() {// 结束刷新表格
                     $('.admin-table-page').show();
                     $('#searchAll').click();
                 }

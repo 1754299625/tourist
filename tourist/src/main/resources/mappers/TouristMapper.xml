@@ -8,6 +8,9 @@
         <result column="enter_time" property="enterTime" jdbcType="DATE"/>
         <result column="leave_time" property="leaveTime" jdbcType="DATE"/>
         <result column="del_flag" property="delFlag" jdbcType="INTEGER"/>
+        <result column="sex" property="sex" jdbcType="INTEGER"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="regione" property="regione" jdbcType="VARCHAR"/>
     </resultMap>
     <insert id="insert" parameterType="com.ssm.maven.core.entity.Tourist">
     insert into tourist (id, tourist_type, science_id, 
@@ -57,6 +60,15 @@
             </if>
             <if test="delFlag != null">
                 #{delFlag,jdbcType=INTEGER},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=INTEGER},
+            </if>
+            <if test="age != null">
+                #{age,jdbcType=INTEGER},
+            </if>
+            <if test="regione != null">
+                #{regione,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -120,10 +132,10 @@
             LAST_INSERT_ID()
         </selectKey>
         insert into tourist
-        (tourist_type,enter_day,science_id,enter_time,leave_time,del_flag,tourist_code,time_hour)
+        (tourist_type,enter_day,science_id,enter_time,leave_time,del_flag,tourist_code,time_hour,sex,age,regione)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.tourist_type},#{item.enter_day},#{item.science_id},#{item.enter_time},#{item.leave_time},#{item.del_flag},#{item.tourist_code},#{item.time_hour})
+            (#{item.tourist_type},#{item.enter_day},#{item.science_id},#{item.enter_time},#{item.leave_time},#{item.del_flag},#{item.tourist_code},#{item.time_hour},#{item.sex},#{item.age},#{item.regione})
         </foreach>
     </insert>
 

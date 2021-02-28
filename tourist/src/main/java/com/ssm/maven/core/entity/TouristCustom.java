@@ -15,7 +15,37 @@ public class TouristCustom extends Tourist {
 
     private Integer max_people;
 
+    private Integer sex;
+
+    private Integer age;
+
+    private String regione;
+
     private Tourist tourist;
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getRegione() {
+        return regione;
+    }
+
+    public void setRegione(String regione) {
+        this.regione = regione;
+    }
 
     public Tourist getTourist() {
         return tourist;

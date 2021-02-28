@@ -12,7 +12,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>修改客流信息</title>
+    <title>修改游客信息</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -31,43 +31,98 @@
 <body>
 <div style="margin: 15px;">
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>修改客流信息</legend>
+        <legend>修改游客信息</legend>
     </fieldset>
 
     <form class="layui-form" id="form1" action="">
 
+<%--        <div class="layui-form-item">--%>
+<%--            <label class="layui-form-label">景区名称</label>--%>
+<%--            <div class="layui-input-inline">--%>
+<%--                <input type="text" name="scenicname" value="${sc.scenicname}" lay-verify="title" autocomplete="off"--%>
+<%--                       placeholder="请输入景区名称"--%>
+<%--                       class="layui-input">--%>
+<%--            </div>--%>
+<%--        </div>--%>
+
+
 
         <div class="layui-form-item">
-            <label class="layui-form-label">开始时间</label>
+            <label class="layui-form-label">年龄</label>
+            <div class="layui-input-block">
+                <input type="text" style="width: 190px;"
+                       id="age" lay-verify="required" placeholder="请输入年龄" autocomplete="off" value="${tourist.age}"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <c:if test="${tourist.sex == 0}">
+                    <input type="radio" name="sex" value="0" title="男" checked="">
+                    <input type="radio" name="sex" value="1" title="女">
+                </c:if>
+                <c:if test="${tourist.sex == 1}">
+                    <input type="radio" name="sex" value="0" title="男">
+                    <input type="radio" name="sex" value="1" title="女" checked="">
+                </c:if>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">所属地区</label>
+            <div class="layui-input-block">
+                <input type="text" style="width: 190px;"
+                       id="regione" lay-verify="required" placeholder="请输入所属地区" autocomplete="off" value="${tourist.regione}"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">进入时间</label>
             <div class="layui-input-inline">
-                <input class="layui-input" placeholder="开始时间"
+                <input class="layui-input" placeholder="进入时间" value="${enter_time}"
                        id="LAY_demorange_s">
             </div>
-
         </div>
+
         <div class="layui-form-item">
             <label class="layui-form-label">离开时间</label>
             <div class="layui-input-inline">
-                <input class="layui-input" placeholder="截止时间" id="LAY_demorange_e">
+                <input class="layui-input" placeholder="截止时间" value="${leave_time}"
+                       id="LAY_demorange_e">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <div class="layui-input-block">
+            <div class="layui-input-block" style="margin-left: 0px;">
                 <label class="layui-form-label" style="left: 0">游客类型</label>
                 <div class="layui-input-inline">
                     <select id="list" name="tourist_type">
-                        <c:if test="${tourist_type == 1}">
-                            <option id="1" value="1" data-id="1" selected="selected">游客</option>
-                            <option id='2' value="2" data-id="2">会员</option>
+                        <c:if test="${tourist.tourist_type == 1}">
+                            <option id="1" value="1" data-id="1" selected="selected">散客</option>
+                            <option id='2' value="2" data-id="2">团体</option>
+                            <option id='3' value="3" data-id="3">二销</option>
+                            <option id='4' value="4" data-id="4">电商</option>
                         </c:if>
-                        <c:if test="${tourist_type == 2}">
-                            <option id="1" value="1" data-id="1">游客</option>
-                            <option id='2' value="2" data-id="2" selected="selected">会员</option>
+                        <c:if test="${tourist.tourist_type == 2}">
+                            <option id="1" value="1" data-id="1">散客</option>
+                            <option id='2' value="2" data-id="2" selected="selected">团体</option>
+                            <option id='3' value="3" data-id="3">二销</option>
+                            <option id='4' value="4" data-id="4">电商</option>
                         </c:if>
-                        <c:if test="${tourist_type != 2 || tourist_type != 1}">
-                            <option id="1" value="1" data-id="1">游客</option>
-                            <option id='2' value="2" data-id="2" selected="selected">会员</option>
+                        <c:if test="${tourist.tourist_type == 3}">
+                            <option id="1" value="1" data-id="1">散客</option>
+                            <option id='2' value="2" data-id="2">团体</option>
+                            <option id='3' value="3" data-id="3" selected="selected">二销</option>
+                            <option id='4' value="4" data-id="4">电商</option>
+                        </c:if>
+                        <c:if test="${tourist.tourist_type == 4}">
+                            <option id="1" value="1" data-id="1">散客</option>
+                            <option id='2' value="2" data-id="2">团体</option>
+                            <option id='3' value="3" data-id="3">二销</option>
+                            <option id='4' value="4" data-id="4" selected="selected">电商</option>
                         </c:if>
                     </select>
                 </div>
@@ -109,9 +164,9 @@
         //alert('${leave_time}');
         //alert('${enter_time}');
         var laydate = layui.laydate;
-        var b1 = '${leave_time}';
-        var b2 = '${enter_time}';
-        var a1, a2;
+        <%--var b1 = '${leave_time}';--%>
+        <%--var b2 = '${enter_time}';--%>
+        var a1 = '${enter_time}', a2 = '${enter_time}';
         var start = {
             format: 'YYYY-MM-DD hh:mm:ss',    // 日期格式
             istime: false,                        // 是否开启时间选择
@@ -167,20 +222,33 @@
             layui.use('layer', function () {
                 var $ = layui.jquery,
                     layer = layui.layer;
-                var str = document.getElementById("list").value;
-                alert(str);
-                var tourist_code = '${tourist_code}';
-                //alert(code);
+                var tourist_type = document.getElementById("list").value;
+                var tourist_code = '${tourist.tourist_code}';
+                var sex = $('input[name="sex"]:checked').val();
+                var age = document.getElementById("age").value;
+                var regione = document.getElementById("regione").value;
                 $.ajax({
                     type: "GET",
                     url: "${pageContext.request.contextPath}/people/updateByTouristCode.do",
-                    data: {tourist_code: tourist_code, tourist_type: str, enter_time: a1, leave_time: a2},
+                    data: {
+                        tourist_code: tourist_code,
+                        tourist_type: tourist_type,
+                        sex: sex,
+                        age: age,
+                        regione: regione,
+                        enter_time: a1,
+                        leave_time: a2
+                    },
                     dataType: "text",
                     success: function (data) {
                         layer.msg(data)
-                        //$('#searchAll').click();
-                        //var checkValue=$("#list").val();
-                        //alert(checkValue);
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.layer.close(index); //再执行关闭
+                    },
+                    fail: function (data){
+                        layer.msg(data)
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.layer.close(index); //再执行关闭
                     }
                 });
 

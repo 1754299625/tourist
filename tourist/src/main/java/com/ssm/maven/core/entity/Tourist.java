@@ -14,8 +14,10 @@ public class Tourist {
     private Date enter_day;
 
     private Integer science_id;
+
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date enter_time;
+
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date leave_time;
 
@@ -24,6 +26,37 @@ public class Tourist {
     private String tourist_code;
 
     private Integer time_hour;
+
+    private Integer sex;
+
+    private Integer age;
+
+    private String regione;
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getRegione() {
+        return regione;
+    }
+
+    public void setRegione(String regione) {
+        this.regione = regione;
+    }
+
 
     public Integer getTime_hour() {
         return time_hour;
