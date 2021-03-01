@@ -21,10 +21,10 @@
 
     <blockquote class="layui-elem-quote">
         <div class="layui-form-pane">
-            <div class="layui-form-item">
+            <div class="layui-form-item" style="display: inline-block;">
                 <label class="layui-form-label">时间范围</label>
                 <div class="layui-input-inline">
-                    <input class="layui-input" placeholder="开始时间"
+                    <input class="layui-input" placeholder="进入时间"
                            onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"
                            id="LAY_demorange_s">
                 </div>
@@ -34,26 +34,30 @@
                            id="LAY_demorange_e">
                 </div>
 
-                <div class="layui-input-inline">
-                    <select id="list">
-                        <c:forEach items="${list}" var="item">
-                            <option id="${item.id}" value="${item.tourist_code}"
-                                    data-id="${item.science_id}">${item.tourist_code}</option>
-                        </c:forEach>
-                    </select>
-                </div>
+<%--                <div class="layui-input-inline">--%>
+<%--                    <select id="list">--%>
+<%--                        <c:forEach items="${list}" var="item">--%>
+<%--                            <option id="${item.id}" value="${item.tourist_code}"--%>
+<%--                                    data-id="${item.science_id}">${item.tourist_code}</option>--%>
+<%--                        </c:forEach>--%>
+<%--                    </select>--%>
+<%--                </div>--%>
 
-                <div class="layui-form-item">
-                    <a href="javascript:;" class="layui-btn layui-btn-small" id="searchTime">
-                        <i class="layui-icon">&#xe615;</i> 时间搜索
+                <div class="layui-form-item" style="display: inline-block;margin-left: 7px;margin-top: 3px;margin-bottom: 0px;">
+                    <a href="javascript:;" class="layui-btn layui-btn-small" id="searchTime" style="width: 65px;">
+                        <i class="layui-icon">&#xe615;</i> 搜索
                     </a>
                     <span>&nbsp;</span>
-                    <a href="javascript:;" class="layui-btn layui-btn-small" id="search">
-                        <i class="layui-icon">&#xe615;</i> 搜索游客
-                    </a>
-                    <a href="javascript:;" class="layui-btn layui-btn-small" id="searchAll">
+<%--                    <a href="javascript:;" class="layui-btn layui-btn-small" id="search">--%>
+<%--                        <i class="layui-icon">&#xe615;</i> 搜索游客--%>
+<%--                    </a>--%>
+<%--                    <a href="javascript:;" class="layui-btn layui-btn-small" id="searchAll">
                         <i class="layui-icon">&#xe615;</i> 搜索全部游客
+                    </a>--%>
+                    <a href="javascript:;" class="layui-btn layui-btn-small" id="exportAll">
+                        <i class="layui-icon">&#xe61d;</i> 导出游客列表
                     </a>
+                    <input type="file" name="file1" lay-type="file" class="layui-upload-file" lay-title="导入游客信息" id="test">
                 </div>
             </div>
 
@@ -61,7 +65,7 @@
 
     </blockquote>
     <fieldset class="layui-elem-field">
-        <legend>景区客流详细信息</legend>
+        <legend>景区游客详细信息</legend>
         <div class="layui-field-box layui-form">
             <table class="layui-table admin-table">
                 <thead>
@@ -76,6 +80,7 @@
                     <th>年龄</th>
                     <th>所属地区</th>
                     <th>游客类型</th>
+                    <th>景区名称</th>
                     <th>进入时间</th>
                     <th>离开时间</th>
                     <th>操作</th>
@@ -101,7 +106,7 @@
 <%--        <td>{{ item.address }}</td>--%>
 <%--        <td>{{ item.enter_day}}</td>--%>
 <%--        <td>{{ item.max_people }}</td>--%>
-        <td>{{ item.tourist_code}}</td>
+        <td>{{ item.id}}</td>
         <td>
             {{# if(item.sex == 0){ }}
             男
@@ -126,6 +131,7 @@
             电商
             {{# } }}
         </td>
+        <td>{{ item.scenicname }}</td>
         <td>{{ item.enter_time}}</td>
         <td>{{ item.leave_time}}</td>
         <td>
@@ -169,7 +175,7 @@
                 //alert('渲染成功');
             },
             fail: function (msg) { //获取数据失败的回调
-                alert('获取数据失败')
+                // alert('获取数据失败')
             },
             complate: function () { //完成的回调
                 //alert('处理完成');
@@ -234,6 +240,13 @@
         }
 
 
+        $('#exportAll').on('click', function () {
+            var code = '${code}';
+            var day = '${day}';
+            location.href = "${pageContext.request.contextPath}/File/exportTouristExcelAll.do?scenicareaCode=" + code + "&&day=" + day;
+        })
+
+/*
         $('#search').on('click', function () {
 
             layui.use(['paging', 'form'], function () {
@@ -244,12 +257,12 @@
                     form = layui.form();
                 var str = $('#list').val();
                 var str1 = $("#list").find(" option:selected").attr("data-id");
-                alert(str);
-                alert(str1);
+                // alert(str);
+                // alert(str1);
                 //parent.layer.msg(str)
                 paging.init({
                     openWait: true,
-                    url: '${pageContext.request.contextPath}/people/searchTouristInfor.do', //地址
+                    url: '<%--${pageContext.request.contextPath}--%>/people/searchTouristInfor.do', //地址
                     elem: '#content', //内容容器
                     params: { //发送到服务端的参数
                         tourist_code: str,
@@ -285,7 +298,7 @@
                     }
                 });
             });
-        });
+        });*/
 
         $('#searchTime').on('click', function () {
             layui.use(['paging', 'form'], function () {
@@ -295,9 +308,9 @@
                     layer = layui.layer, //获取当前窗口的layer对象
                     form = layui.form();
                 var str1 = $("#list").find(" option:selected").attr("data-id");
-                alert(str1);
-                alert(a1);
-                alert(a2);
+                // alert(str1);
+                // alert(a1);
+                // alert(a2);
                 //parent.layer.msg(str1)
                 paging.init({
                     openWait: true,
@@ -407,7 +420,7 @@
             var $ = layui.jquery,
                 layer = layui.layer;
             var code = e.getAttribute("data-id");
-            alert(code);
+            // alert(code);
             $.ajax({
                 type: "GET",
                 url: "${pageContext.request.contextPath}/people/deleteByTouristCode.do",
@@ -439,7 +452,7 @@
                 resize: 'true',
                 moveOut: 'true',
                 success: function (layero, index) {
-                    console.log(layero, index);
+                    // console.log(layero, index);
                     $('.admin-table-page').hide();
                 },
                 cancel: function (index, layero) {
@@ -456,4 +469,16 @@
         })
     }
 </script>
-
+<script>
+    layui.use('upload', function () {
+        layer = layui.layer;
+        layui.upload({
+            url: '${pageContext.request.contextPath}/File/importfilePeople.do'
+            , elem: '#test' //指定原始元素，默认直接查找class="layui-upload-file"
+            , method: 'post' //上传接口的http类型
+            , success: function (res) {
+                layer.msg(res);
+            }
+        });
+    });
+</script>

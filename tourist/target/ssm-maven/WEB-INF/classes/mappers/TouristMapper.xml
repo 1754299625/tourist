@@ -92,7 +92,7 @@
         <if test="enter_day!=null and enter_day!=''">
             AND tourist.enter_day = #{enter_day}
         </if>
-        AND scenicspot.del_flag = 1
+        AND scenicspot.del_flag = 1 AND tourist.del_flag = 1
     </select>
 
     <select id="searchTouristInfor" parameterType="com.ssm.maven.core.entity.TouristCustom"
@@ -106,14 +106,14 @@
             AND tourist.tourist_code = #{tourist_code}
         </if>
         <if test="enter_time != null and enter_time !='' ">
-            <![CDATA[   AND DATE_FORMAT(enter_time, '%Y-%m-%d-%h-%I-%S')>=  DATE_FORMAT(#{enter_time}, '%Y-%m-%d-%h-%I-%S')   ]]>
+            AND tourist.enter_time >= #{enter_time}
         </if>
         <if test="leave_time != null and leave_time !='' ">
-            <![CDATA[   AND DATE_FORMAT(leave_time, '%Y-%m-%d-%h-%I-%S')<=  DATE_FORMAT(#{leave_time}, '%Y-%m-%d-%h-%I-%S')   ]]>
+            AND tourist.leave_time <![CDATA[<=]]> #{leave_time}
         </if>
-        <if test="enter_day != null and enter_day  !='' ">
+<!--        <if test="enter_day != null and enter_day  !='' ">
             AND enter_day = #{enter_day}
-        </if>
+        </if>-->
         AND tourist.del_flag = 1 ORDER BY tourist.time_hour ASC ,enter_day DESC
     </select>
 
@@ -122,7 +122,7 @@
     </select>
 
     <update id="updateTouristInfor" parameterType="com.ssm.maven.core.entity.Tourist">
-        UPDATE tourist SET tourist.enter_time = #{enter_time} , tourist.tourist_type = #{tourist_type},
+        UPDATE tourist SET tourist.enter_time = #{enter_time} , tourist.tourist_type = #{tourist_type},tourist.sex = #{sex},tourist.age = #{age}, tourist.regione = #{regione},
         tourist.leave_time = #{leave_time} WHERE tourist.tourist_code = #{tourist_code}
     </update>
 

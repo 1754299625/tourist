@@ -7,6 +7,7 @@ import com.ssm.maven.core.service.TouristService;
 import com.ssm.maven.core.util.DateUtil;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,8 @@ public class peopleController {
     private ScenicService scenicService;
     @Resource
     private TouristService touristService;
+
+    private static final Logger log = Logger.getLogger(peopleController.class);// 日志文件
 
     @RequestMapping("getScenicpeopleAll")
     public @ResponseBody
@@ -225,7 +228,6 @@ public class peopleController {
         model.put("code", code);
         model.put("day", day);
         ModelAndView mv = new ModelAndView();
-
         mv.setViewName("views/tourist/touristInfor");
         return mv;
     }
@@ -256,10 +258,22 @@ public class peopleController {
         return pb;
     }
 
+    /**
+     * 游客列表检索
+     * @param pageIndex
+     * @param pageSize
+     * @param enter_time
+     * @param leave_time
+     * @param science_id
+     * @param enter_day
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("searchTouristInforTime")
     public @ResponseBody
     PageBean<TouristCustom> searchTouristInforTime(Integer pageIndex, Integer pageSize, String enter_time,
                                                    String leave_time, Integer science_id, String enter_day) throws Exception {
+        log.info("进入游客信息检索界面");
         //System.out.println("页数"+pageIndex+pageSize);
 //        System.out.println(science_id);
         TouristCustom touristCustom = new TouristCustom();

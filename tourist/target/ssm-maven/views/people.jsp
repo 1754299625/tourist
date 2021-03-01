@@ -30,7 +30,7 @@
                     <input class="layui-input" placeholder="截止日期" id="LAY_demorange_e">
                 </div>
 
-                <div class="layui-input-inline">
+                <div class="layui-input-inline" style="margin-top: 2px;">
                     <select id="list">
                         <c:forEach items="${list}" var="item">
                             <option id="${item.code}" value="${item.code}"
@@ -42,19 +42,14 @@
             </div>
 
             <div class="layui-form-item" style="display: inline-block;">
-                <span>&nbsp;</span>
-                <a href="javascript:;" class="layui-btn layui-btn-small" id="search">
+               <%-- <span>&nbsp;</span>--%>
+                <a href="javascript:;" class="layui-btn layui-btn-small" id="search" style="margin-left: 20px;margin-top: 4px;">
                     <i class="layui-icon">&#xe615;</i> 搜索景区
                 </a>
-                <a href="javascript:;" class="layui-btn layui-btn-small" id="searchAll">
+                <a href="javascript:;" class="layui-btn layui-btn-small" id="searchAll" style="margin-top: 4px;">
                     <i class="layui-icon">&#xe615;</i> 搜索全部景区
                 </a>
-                <input type="file" name="file1" lay-type="file" class="layui-upload-file" lay-title="导入客流文件" id="test">
-                <a href="javascript:;" class="layui-btn layui-btn-small" id="exportAll">
-                    <i class="layui-icon">&#xe61d;</i> 导出详情
-                </a>
-
-                <a href="javascript:;" class="layui-btn layui-btn-small" id="export">
+                <a href="javascript:;" class="layui-btn layui-btn-small" id="export" style="margin-top: 4px;">
                     <i class="layui-icon">&#xe62a;</i> 导出客流列表
                 </a>
             </div>
@@ -173,7 +168,7 @@
         var a1, a2;
         var start = {
             min: '2010-01-01',
-            format: 'YYYY-MM-DD hh:mm:ss' //日期格式
+            format: 'YYYY-MM-DD' //日期格式
             , max: laydate.now()
             , istoday: true
             , istime: true
@@ -187,7 +182,7 @@
 
         var end = {
             min: '2010-01-01',
-            format: 'YYYY-MM-DD hh:mm:ss'
+            format: 'YYYY-MM-DD'
             , max: laydate.now()
             , istoday: true
             , istime: true
@@ -310,10 +305,6 @@
             });
         });
 
-        $('#exportAll').on('click', function () {
-            location.href = "${pageContext.request.contextPath}/File/exportTouristExcelAll.do";
-        })
-
         $('#export').on('click', function () {
             location.href = "${pageContext.request.contextPath}/File/exportTouristExcel.do";
         })
@@ -335,8 +326,8 @@
 
             var code = e.getAttribute("data-id");
             var day = e.getAttribute("data-name");
-            alert(code);
-            alert(day);
+            // alert(code);
+            // alert(day);
             $.ajax({
                 type: "GET",
                 url: "${pageContext.request.contextPath}/peolple/deleteTouristByCode.do",
@@ -364,7 +355,7 @@
             //alert(day);
             //alert(code);
             layer.open({
-                title: '客流详细信息',
+                title: '景区游客详细信息',
                 maxmin: true,
                 type: 2,
                 content: '${pageContext.request.contextPath}/people/getTouristInfor.do?code=' + code + '&&day=' + day,
@@ -372,7 +363,7 @@
                 resize: 'true',
                 moveOut: 'true',
                 success: function (layero, index) {
-                    console.log(layero, index);
+                    // console.log(layero, index);
                     $('.admin-table-page').hide();
                 },
                 cancel: function (index, layero) {
@@ -384,6 +375,7 @@
         })
     }
 </script>
+<%--
 <script>
     layui.use('upload', function () {
         layer = layui.layer;
@@ -396,4 +388,4 @@
             }
         });
     });
-</script>
+</script>--%>

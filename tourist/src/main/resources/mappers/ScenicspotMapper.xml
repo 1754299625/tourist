@@ -291,8 +291,8 @@
 /*        SELECT DISTINCT scenicspot.*,COUNT(a.id) pepoleCount, a.enter_day from scenicspot,tourist a , tourist b WHERE scenicspot.id =
         a.science_id and a.science_id != b.science_id AND a.del_flag = 1 AND b.del_flag = 1 ORDER by
         scenicname,a.enter_day DESC*/
-SELECT  a.*,COUNT(b.id) pepoleCount, b.enter_day FROM tourist b LEFT JOIN scenicspot a
-ON a.id = b.science_id WHERE a.del_flag = 1 and b.del_flag = 1 GROUP BY b.enter_day,a.scenicname ORDER BY a.scenicname, b.enter_day DESC
+        SELECT  a.*,COUNT(b.id) pepoleCount, b.enter_day FROM tourist b LEFT JOIN scenicspot a
+        ON a.id = b.science_id WHERE a.del_flag = 1 and b.del_flag = 1 GROUP BY b.enter_day,a.scenicname ORDER BY a.scenicname, b.enter_day DESC
     </select>
 
 

@@ -4,6 +4,7 @@ import com.alibaba.druid.support.logging.Log;
 import com.alibaba.druid.support.logging.LogFactory;
 import com.ssm.maven.core.entity.*;
 import com.ssm.maven.core.service.ScenicService;
+import com.ssm.maven.core.service.ScenictypeService;
 import com.ssm.maven.core.service.TouristService;
 import com.ssm.maven.core.util.*;
 import org.springframework.stereotype.Controller;
@@ -15,12 +16,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("File")
@@ -31,13 +34,15 @@ public class FileController {
     private ScenicService scenicService;
     @Resource
     private TouristService touristService;
+    @Resource
+    private ScenictypeService scenictypeService;
 
     @RequestMapping("importfile")
     public @ResponseBody
     String batchimport(MultipartFile file1,
                        HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         log.info("ClientController ..batchimport() start");
-        System.out.println("进入！");
+//        System.out.println("进入！");
         SysUser sysUser = (SysUser) session.getAttribute("currentUser");
         String Msg = null;
         boolean b = false;
@@ -206,20 +211,32 @@ public class FileController {
         return "success";
     }
 
+    /**
+     * 导出游客信息
+     * @param response
+     */
     @RequestMapping("exportTouristExcelAll")
-    public void exportTouristExcelAll(HttpServletResponse response) {
+    public void exportTouristExcelAll(HttpServletResponse response, String scenicareaCode, String day) throws Exception {
         Map<String, Object> conditionMap = null;
         List<TouristCustom> dataSet = null;
         LeadingOutExcel leadingOutExcel = null;    //工具类
 
+        // 获取景区类型map
+        Scenictype scenictype = new Scenictype();
+        List<Scenictype> list = scenictypeService.selectScenictypeAll(scenictype);
+        Map<Integer, String> map = list.stream().collect(Collectors.toMap(Scenictype::getId, Scenictype::getScenictype_name));
+
         //配置信息
-        String fileName = "客流详细信息" + new Date();
         String format = "yyyy-MM-dd";
+        String fileName = "游客详细信息列表-" + DateUtil.formatDate(new Date(), format);
+
         String format_1 = "yyyy-MM-dd hh:mm:ss";
-        String title = "客流信息";
-        String[] rowName = {"游客编号", "游客类型", "日期", "景区编号", "景区名称", "进入时间", "离开时间"};
-        TouristCustom touristCustom = new TouristCustom();
+        String title = "游客信息";
+        String[] rowName = {"编号","性别","年龄","所属地区", "游客类型", "日期", "景区名称", "入园时间", "离开时间"};
         try {
+            TouristCustom touristCustom = new TouristCustom();
+            touristCustom.setCode(scenicareaCode);
+            touristCustom.setEnter_day(DateUtil.formatString(day, format));
             dataSet = touristService.getTouristList(touristCustom);
         } catch (Exception e) {
             e.printStackTrace();
@@ -229,8 +246,11 @@ public class FileController {
         for (int i = 0; i < dataSet.size(); i++) {
             TouristCustom sc = dataSet.get(i);
             objs = new Object[rowName.length];
-            objs[0] = sc.getTourist_code();
-            objs[1] = sc.getTourist_type();
+            objs[0] = sc.getId();
+            objs[1] = sc.getSex()==0?"男": "女";
+            objs[2] = sc.getAge();
+            objs[3] = sc.getRegione();
+            objs[4] = map.get(sc.getTourist_type());
             //日期类型处理
             Date date = sc.getEnter_day();
             String dateStr = "";
@@ -238,23 +258,22 @@ public class FileController {
                 SimpleDateFormat df = new SimpleDateFormat(format);
                 dateStr = df.format(date);
             }
-            objs[2] = dateStr;
-            objs[4] = sc.getScenicname();
-            objs[3] = sc.getCode();
+            objs[5] = dateStr;
+            objs[6] = sc.getScenicname();
             Date date_1 = sc.getEnter_time();
             String dateStr_1 = "";
             if (date_1 != null) {
                 SimpleDateFormat df = new SimpleDateFormat(format_1);
                 dateStr_1 = df.format(date);
             }
-            objs[5] = dateStr_1;
+            objs[7] = dateStr_1;
             date_1 = sc.getLeave_time();
             dateStr_1 = " ";
             if (date_1 != null) {
                 SimpleDateFormat df = new SimpleDateFormat(format_1);
                 dateStr_1 = df.format(date);
             }
-            objs[6] = dateStr_1;
+            objs[8] = dateStr_1;
             dataList.add(objs);
 
         }
@@ -267,6 +286,10 @@ public class FileController {
         }
     }
 
+    /**
+     * 导出客流列表
+     * @param response
+     */
     @RequestMapping("exportTouristExcel")
     public void exportTouristExcel(HttpServletResponse response) {
         Map<String, Object> conditionMap = null;
@@ -274,12 +297,13 @@ public class FileController {
         LeadingOutExcel leadingOutExcel = null;    //工具类
 
         //配置信息
-        String fileName = "客流汇总信息" + new Date();
         String format = "yyyy-MM-dd";
-        String format_1 = "yyyy-MM-dd hh:mm:ss";
+        String fileName = "客流汇总信息-" + DateUtil.formatDate(new Date(), format);
+
+//        String format_1 = "yyyy-MM-dd hh:mm:ss";
         String title = "客流信息";
-        String[] rowName = {"景区编号", "景区名称", "地址", "日期", "承载量"};
-        ScenicspotCustom touristCustom = new ScenicspotCustom();
+        String[] rowName = {"编号", "景区名称", "地址", "日期", "客流最大承载量", "当前客流量"};
+//        ScenicspotCustom touristCustom = new ScenicspotCustom();
         try {
             dataSet = scenicService.getScenicspotAndDay();
         } catch (Exception e) {
@@ -302,9 +326,10 @@ public class FileController {
             }
             objs[3] = dateStr;
             objs[4] = sc.getMax_people();
+            objs[5] = sc.getPepoleCount();
             dataList.add(objs);
         }
-        System.out.println("客流信息文件汇总导出");
+//        System.out.println("客流信息文件汇总导出");
         leadingOutExcel = new LeadingOutExcel(fileName, title, rowName, dataList, response);
         try {
             leadingOutExcel.export();
