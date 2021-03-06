@@ -2,7 +2,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: snake
-  Date: 2017/7/25
+  Date: 2021/03/04
   Time: 10:30
   To change this template use File | Settings | File Templates.
 --%>
@@ -22,7 +22,7 @@
 
     <blockquote class="layui-elem-quote">
         <div class="layui-form-pane">
-            <div class="layui-form-item">
+            <div class="layui-form-item" style="display: inline-block;float: left;">
                 <label class="layui-form-label">范围选择</label>
                 <div class="layui-input-inline">
                     <input name="enter_time" class="layui-input" placeholder="开始日" id="LAY_demorange_s">
@@ -39,7 +39,7 @@
                     </select>
                 </div>
             </div>
-            <div class="layui-form-item">
+            <div class="layui-form-item" style="display: inline-block;">
                 <span>&nbsp;</span>
                 <a href="javascript:;" class="layui-btn layui-btn-small" id="search">
                     <i class="layui-icon">&#xe615;</i> 搜索
@@ -67,7 +67,7 @@
                     <th>景区名称</th>
                     <th>景区地址</th>
                     <th>日期</th>
-                    <th>承载量</th>
+                    <th>车辆最大承载量</th>
                     <th>操作</th>
                 </tr>
                 </thead>

@@ -274,8 +274,6 @@ public class peopleController {
     PageBean<TouristCustom> searchTouristInforTime(Integer pageIndex, Integer pageSize, String enter_time,
                                                    String leave_time, Integer science_id, String enter_day) throws Exception {
         log.info("进入游客信息检索界面");
-        //System.out.println("页数"+pageIndex+pageSize);
-//        System.out.println(science_id);
         TouristCustom touristCustom = new TouristCustom();
         touristCustom.setScience_id(science_id);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -293,9 +291,6 @@ public class peopleController {
             touristCustom.setEnter_day(a3);
         }
         List<TouristCustom> list = touristService.searchTouristInfor(pageIndex, pageSize, touristCustom);
-//        for (TouristCustom tc : list) {
-//            System.out.println(tc.toString());
-//        }
         PageBean<TouristCustom> pb = new PageBean<TouristCustom>(list);
         return pb;
     }

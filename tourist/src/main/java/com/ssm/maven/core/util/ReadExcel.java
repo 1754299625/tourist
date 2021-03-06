@@ -14,9 +14,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author wkr
@@ -125,6 +123,11 @@ public class ReadExcel {
             return null;
         }
 
+        Map<String, String> map = new HashMap<>();
+        map.put("自然景观型", "1");
+        map.put("人文景观型", "2");
+        map.put("娱乐型", "3");
+
         List<Scenicspot> scenicspotList = new ArrayList<Scenicspot>();//声明一个对象集合
         Scenicspot scenicspot;//声明一个对象
 
@@ -141,28 +144,37 @@ public class ReadExcel {
                 if (null != cell && !getValue(cell).equals("")) {
                     switch (c){
                         case 1:
-                            scenicspot.setScenicname(getValue(cell));//得到行中第二个值
+                            scenicspot.setScenicname(getValue(cell));// 景区名称
                             break;
                         case 2:
-                            scenicspot.setAddress(getValue(cell));//得到行中第三个值
+                            scenicspot.setAddress(getValue(cell));// 地址
                             break;
                         case 3:
-                            scenicspot.setTelephone(getValue(cell));//得到行中第四个值
+                            scenicspot.setScenictype(map.get(getValue(cell)));// 景区类型
                             break;
                         case 4:
-                            scenicspot.setMax_people(Integer.parseInt(getValue(cell)));//得到行中第五个值
+                            scenicspot.setTelephone(getValue(cell));// 电话
                             break;
                         case 5:
-                            scenicspot.setCreate_time(DateUtil.formatString(getValue(cell),"yyyy-MM-dd"));//得到行中第六个值
+                            scenicspot.setMax_people(Integer.parseInt(getValue(cell)));// 最大客流承载量
                             break;
                         case 6:
-                            scenicspot.setStatus(getValue(cell));//得到行中第七个值
+                            scenicspot.setMax_car(Integer.parseInt(getValue(cell)));// 停车场最大承载量
                             break;
                         case 7:
-                            scenicspot.setMax_di(Double.valueOf(getValue(cell)));//得到行中第八个值
+                            scenicspot.setTeamTickets(Double.valueOf(getValue(cell)));// 团队票价
                             break;
                         case 8:
-                            scenicspot.setScenictype(getValue(cell));//得到行中第九个值
+                            scenicspot.setIndividualTickets(Double.valueOf(getValue(cell)));// 散客票价
+                            break;
+                        case 9:
+                            scenicspot.setInternetTickets(Double.valueOf(getValue(cell)));// 电商票价
+                            break;
+                        case 10:
+                            scenicspot.setParkingRate(Double.valueOf(getValue(cell)));// 停车费单价
+                            break;
+                        case 11:
+                            scenicspot.setStatus(getValue(cell));// 状态
                             break;
                     }
                 }

@@ -97,8 +97,8 @@
 
     <select id="searchTouristInfor" parameterType="com.ssm.maven.core.entity.TouristCustom"
             resultType="com.ssm.maven.core.entity.TouristCustom">
-        SELECT tourist.*,scenicspot.* FROM tourist,scenicspot WHERE
-        scenicspot.id = tourist.science_id
+        SELECT tourist.*,scenicspot.* FROM tourist left join scenicspot ON
+        scenicspot.id = tourist.science_id WHERE 1=1
         <if test="science_id != null and science_id !='' ">
             AND scenicspot.id = #{science_id}
         </if>
@@ -111,10 +111,10 @@
         <if test="leave_time != null and leave_time !='' ">
             AND tourist.leave_time <![CDATA[<=]]> #{leave_time}
         </if>
-<!--        <if test="enter_day != null and enter_day  !='' ">
+        <if test="enter_day != null and enter_day  !='' ">
             AND enter_day = #{enter_day}
-        </if>-->
-        AND tourist.del_flag = 1 ORDER BY tourist.time_hour ASC ,enter_day DESC
+        </if>
+        AND tourist.del_flag = 1 ORDER BY tourist.id ASC
     </select>
 
     <select id="getCount" parameterType="com.ssm.maven.core.entity.TouristCustom" resultType="java.lang.Integer">

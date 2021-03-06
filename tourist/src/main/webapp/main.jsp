@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: snake
-  Date: 2017/7/25
+  Date: 2021/03/04
   Time: 0:15
   To change this template use File | Settings | File Templates.
 --%>
@@ -166,7 +166,7 @@
             spreadOne: true,
             elem: '#admin-navbar-side',
             cached: false,
-            url: '${pageContext.request.contextPath}/getMenu.do'
+            url: '${pageContext.request.contextPath}/getMenu.do' //查询菜单
             //data: navs
             /*cached:true,
              url: 'datas/nav.json'*/

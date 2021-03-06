@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: snake
-  Date: 2017/7/25
-  Time: 10:34
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -41,13 +34,13 @@
         <a href="javascript:;" class="layui-btn layui-btn-small" id="search">
             <i class="layui-icon">&#xe615;</i> 搜索景区
         </a>
-        <a href="javascript:;" class="layui-btn layui-btn-small" id="searchAll">
+        <a href="javascript:;" class="layui-btn layui-btn-small" id="searchAll" style="margin-left: 0px;">
             <i class="layui-icon">&#xe615;</i> 搜索全部景区
         </a>
-        <input type="file" name="file1" lay-type="file" class="layui-upload-file" lay-title="导入文件" id="test">
-        <a href="javascript:;" class="layui-btn layui-btn-small" id="export">
+        <a href="javascript:;" class="layui-btn layui-btn-small" id="export" style="margin-left: 0px;">
             <i class="layui-icon">&#xe608;</i> 导出数据
         </a>
+        <input type="file" name="file1" lay-type="file" class="layui-upload-file" lay-title="导入文件" id="test">
     </blockquote>
     <fieldset class="layui-elem-field">
         <legend>景区列表</legend>
@@ -62,9 +55,11 @@
                     <th>联系方式</th>
                     <th>客流最大承载量</th>
                     <th>停车场最大承载量</th>
-                    <th>舒适度阈值</th>
+                    <th>团队票价</th>
+                    <th>散客票价</th>
+                    <th>电商票价</th>
+                    <th>停车费单价</th>
                     <th>状态</th>
-                    <th>创建时间</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -86,13 +81,25 @@
         <td>{{ item.id }}</td>
         <td>{{ item.scenicname }}</td>
         <td>{{ item.address }}</td>
-        <td>{{ item.scenictype}}</td>
+        <td>
+            {{# if(item.scenictype == 1){ }}
+            自然景观型
+            {{# } }}
+            {{# if(item.scenictype == 2){ }}
+            人文景观型
+            {{# } }}
+            {{# if(item.scenictype == 3){ }}
+            娱乐型
+            {{# } }}
+        </td>
         <td>{{ item.telephone }}</td>
         <td>{{ item.max_people }}</td>
         <td>{{ item.max_car }}</td>
-        <td>{{ item.max_di}}</td>
+        <td>{{ item.teamTickets }}</td>
+        <td>{{ item.individualTickets }}</td>
+        <td>{{ item.internetTickets }}</td>
+        <td>{{ item.parkingRate }}</td>
         <td>{{ item.status }}</td>
-        <td>{{ item.create_time }}</td>
         <td>
             <a href="javascript:;" data-id="{{item.code}}" class="layui-btn layui-btn-mini edit"
                onclick="editScenicarea(this)">编辑</a>
@@ -120,7 +127,6 @@
 
         if ('${Msg}' != '') {
             layer.msg('${Msg}');
-            //alert('${Msg}');
         }
 
         paging.init({
@@ -169,7 +175,7 @@
                     layer = layui.layer, //获取当前窗口的layer对象
                     form = layui.form();
                 var str = $('#list').val();
-                parent.layer.msg(str)
+                // parent.layer.msg(str)
                 paging.init({
                     openWait: true,
                     url: '${pageContext.request.contextPath}/scenic/getScenicByCode.do', //地址
@@ -321,9 +327,6 @@
                 resize: 'true',
                 moveOut: 'true',
                 success: function (layero, index) {
-                    // console.log(layero, index);
-                    // var iframe = window['layui-layer-iframe' + index];
-                    // iframe.child(data);
                     $('.admin-table-page').hide();
                 },
                 cancel: function (index, layero) {
@@ -361,8 +364,6 @@
                 success: function (data) {
                     layer.msg("删除成功！" + data)
                     $('#searchAll').click();
-                    //var checkValue=$("#list").val();
-                    //alert(checkValue);
                     window.location.href = "${pageContext.request.contextPath}/scenic/getScenicMenu.do";
 
                 }
@@ -380,6 +381,7 @@
                 , elem: '#test' //指定原始元素，默认直接查找class="layui-upload-file"
                 , method: 'post' //上传接口的http类型
                 , success: function (res) {
+                    $('#searchAll').click();
                     layer.msg(res);
                 }
             });

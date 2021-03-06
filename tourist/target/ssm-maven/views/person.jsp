@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: snake
-  Date: 2017/7/25
+  Date: 2021/03/04
   Time: 10:25
   To change this template use File | Settings | File Templates.
 --%>
@@ -24,11 +24,11 @@
 </head>
 <body class="childrenBody">
 <form class="layui-form" action="personInfoSubmit.do" method="post">
-    <div class="user_left">
+    <div class="user_left" style="margin-left: 635px;margin-top: 85px;">
         <div class="layui-form-item">
             <label class="layui-form-label">账号</label>
             <div class="layui-input-block">
-                <input type="text" value="${currentUser.account}" style="width:100px;" disabled
+                <input type="text" value="${currentUser.account}" style="width: 209px;" disabled
                        class="layui-input layui-disabled">
                 <input type="hidden" name="account" value="${currentUser.account}">
             </div>
@@ -36,7 +36,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">用户组</label>
             <div class="layui-input-block">
-                <input type="text" value="超级管理员" style="width:100px;" disabled class="layui-input layui-disabled">
+                <input type="text" value="超级管理员" style="width: 209px;" disabled class="layui-input layui-disabled">
             </div>
         </div>
         <div class="layui-form-item">
@@ -65,7 +65,7 @@
             <label class="layui-form-label">联系电话</label>
             <div class="layui-input-block">
                 <input type="tel" name="phone" value="${currentUser.phone}" placeholder="请输入联系电话" lay-verify="phone"
-                       style="width:210px;"
+                       style="width:209px;"
                        lay-verify="required|phone"
                        class="layui-input userPhone">
             </div>
@@ -74,7 +74,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">邮箱</label>
             <div class="layui-input-block">
-                <input type="text" style="width:210p" name="email" value="${currentUser.email}" lay-verify="email"
+                <input type="text" style="width:209px;" name="email" value="${currentUser.email}" lay-verify="email"
                        placeholder="请输入邮箱"
                        lay-verify="required|email"
                        class="layui-input userEmail">
@@ -84,7 +84,7 @@
 
         <div class="layui-form-item" style="margin-left: 20px;">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit="" lay-filter="changeUser">修改</button>
+                <button class="layui-btn" lay-submit=""  onclick="return false" lay-filter="changeUser">修改</button>
                 <button type="reset" class="layui-btn layui-btn-primary" style="margin-left: 20px">重置</button>
             </div>
         </div>
@@ -96,7 +96,7 @@
         var form = layui.form();
     });
 </script>
-<
+
 <script>
     layui.use(['form', 'layedit', 'laydate'], function () {
         var form = layui.form()
@@ -131,11 +131,11 @@
 
         });
         //监听提交
-        form.on('submit(demo1)', function (data) {
+        form.on('submit(changeUser)', function (data) {
+            // alert('修改成功');
             layer.msg('修改成功');
-            window.parent.location.reload();
-            return true;
-
+            // window.parent.location.reload();
+             return true;
         });
     });
 

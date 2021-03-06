@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: snake
-  Date: 2017/7/25
+  Date: 2021/03/04
   Time: 10:30
   To change this template use File | Settings | File Templates.
 --%>
@@ -43,7 +43,7 @@
 <%--                    </select>--%>
 <%--                </div>--%>
 
-                <div class="layui-form-item" style="display: inline-block;margin-left: 7px;margin-top: 3px;margin-bottom: 0px;">
+                <div class="layui-form-item" style="display: inline-block;margin-bottom: 0px;">
                     <a href="javascript:;" class="layui-btn layui-btn-small" id="searchTime" style="width: 65px;">
                         <i class="layui-icon">&#xe615;</i> 搜索
                     </a>
@@ -57,6 +57,7 @@
                     <a href="javascript:;" class="layui-btn layui-btn-small" id="exportAll">
                         <i class="layui-icon">&#xe61d;</i> 导出游客列表
                     </a>
+                    <span>&nbsp;</span>
                     <input type="file" name="file1" lay-type="file" class="layui-upload-file" lay-title="导入游客信息" id="test">
                 </div>
             </div>
@@ -80,6 +81,7 @@
                     <th>年龄</th>
                     <th>所属地区</th>
                     <th>游客类型</th>
+                    <th>日期</th>
                     <th>景区名称</th>
                     <th>进入时间</th>
                     <th>离开时间</th>
@@ -125,12 +127,10 @@
             团体
             {{# } }}
             {{# if(item.tourist_type == 3){ }}
-            二销
-            {{# } }}
-            {{# if(item.tourist_type == 4){ }}
             电商
             {{# } }}
         </td>
+        <td>{{ item.enter_day }}</td>
         <td>{{ item.scenicname }}</td>
         <td>{{ item.enter_time}}</td>
         <td>{{ item.leave_time}}</td>
@@ -307,7 +307,7 @@
                     layerTips = parent.layer === undefined ? layui.layer : parent.layer, //获取父窗口的layer对象
                     layer = layui.layer, //获取当前窗口的layer对象
                     form = layui.form();
-                var str1 = $("#list").find(" option:selected").attr("data-id");
+                var science_id = '${code}';
                 // alert(str1);
                 // alert(a1);
                 // alert(a2);
@@ -317,7 +317,7 @@
                     url: '${pageContext.request.contextPath}/people/searchTouristInforTime.do', //地址
                     elem: '#content', //内容容器
                     params: { //发送到服务端的参数
-                        science_id: str1,
+                        science_id: science_id,
                         enter_time: a1,
                         leave_time: a2,
                         enter_day: '${day}'
@@ -428,7 +428,7 @@
                 dataType: "text",
                 success: function (data) {
                     layer.msg(data)
-                    $('#searchAll').click();
+                    $('#searchTime').click();
                     //var checkValue=$("#list").val();
                     //alert(checkValue);
                 }
@@ -457,11 +457,11 @@
                 },
                 cancel: function (index, layero) {
                     $('.admin-table-page').show();
-                    $('#searchAll').click();
+                    $('#searchTime').click();
                 },
                 end:function() {// 结束刷新表格
                     $('.admin-table-page').show();
-                    $('#searchAll').click();
+                    $('#searchTime').click();
                 }
             });
 
@@ -477,6 +477,7 @@
             , elem: '#test' //指定原始元素，默认直接查找class="layui-upload-file"
             , method: 'post' //上传接口的http类型
             , success: function (res) {
+                $('#searchTime').click();
                 layer.msg(res);
             }
         });

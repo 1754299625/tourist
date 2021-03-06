@@ -16,6 +16,7 @@
             <list>
                 <value>com.ssm.maven.core.service.*</value>
                 <value>com.ssm.maven.core.dao.*</value>
+                <value>com.ssm.maven.core.util.*</value>
             </list>
         </property>
     </bean>

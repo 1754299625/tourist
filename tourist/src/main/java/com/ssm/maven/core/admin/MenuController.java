@@ -21,6 +21,11 @@ public class MenuController {
     @Resource
     private Menu menu;
 
+    /**
+     * 查询菜单
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("getMenu")
     public @ResponseBody
     List<MenuBean> getMenu() throws Exception {

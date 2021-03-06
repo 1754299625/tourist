@@ -91,15 +91,15 @@ public class LeadingOutExcel {
 
                 for (int j = 0; j < obj.length; j++) {
                     HSSFCell cell = null;   //设置单元格的数据类型
-                    if (j == 0) {
-                        cell = row.createCell(j, HSSFCell.CELL_TYPE_NUMERIC);
-                        cell.setCellValue(i + 1);
-                    } else {
+//                    if (j == 0) {
+//                        cell = row.createCell(j, HSSFCell.CELL_TYPE_NUMERIC);
+//                        cell.setCellValue(i + 1);
+//                    } else {
                         cell = row.createCell(j, HSSFCell.CELL_TYPE_STRING);
                         if (!"".equals(obj[j]) && obj[j] != null) {
                             cell.setCellValue(obj[j].toString());               //设置单元格的值
                         }
-                    }
+//                    }
                     cell.setCellStyle(style);                                   //设置单元格样式
                 }
             }

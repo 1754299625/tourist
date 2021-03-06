@@ -103,26 +103,17 @@
                         <c:if test="${tourist.tourist_type == 1}">
                             <option id="1" value="1" data-id="1" selected="selected">散客</option>
                             <option id='2' value="2" data-id="2">团体</option>
-                            <option id='3' value="3" data-id="3">二销</option>
-                            <option id='4' value="4" data-id="4">电商</option>
+                            <option id='3' value="4" data-id="3">电商</option>
                         </c:if>
                         <c:if test="${tourist.tourist_type == 2}">
                             <option id="1" value="1" data-id="1">散客</option>
                             <option id='2' value="2" data-id="2" selected="selected">团体</option>
-                            <option id='3' value="3" data-id="3">二销</option>
-                            <option id='4' value="4" data-id="4">电商</option>
+                            <option id='3' value="4" data-id="3">电商</option>
                         </c:if>
                         <c:if test="${tourist.tourist_type == 3}">
                             <option id="1" value="1" data-id="1">散客</option>
                             <option id='2' value="2" data-id="2">团体</option>
-                            <option id='3' value="3" data-id="3" selected="selected">二销</option>
-                            <option id='4' value="4" data-id="4">电商</option>
-                        </c:if>
-                        <c:if test="${tourist.tourist_type == 4}">
-                            <option id="1" value="1" data-id="1">散客</option>
-                            <option id='2' value="2" data-id="2">团体</option>
-                            <option id='3' value="3" data-id="3">二销</option>
-                            <option id='4' value="4" data-id="4" selected="selected">电商</option>
+                            <option id='3' value="3" data-id="3" selected="selected">电商</option>
                         </c:if>
                     </select>
                 </div>

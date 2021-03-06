@@ -8,7 +8,6 @@
 
     <!-- 使用注解的包，包括子集 -->
     <context:component-scan base-package="com.ssm.maven.core.admin"/>
-
 <!--    <mvc:annotation-driven>-->
 <!--        <mvc:message-converters>-->
 <!--            <bean class="org.springframework.http.converter.StringHttpMessageConverter" /> &lt;!&ndash;先进行string转换&ndash;&gt;-->

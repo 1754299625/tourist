@@ -65,20 +65,20 @@
             </div>
         </div>
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">舒适度阈值</label>
-            <div class="layui-input-inline">
-                <input type="text" name="max_di" value="${sc.max_di}" lay-verify="di" placeholder="请输入最大阈值"
-                       autocomplete="off"
-                       class="layui-input">
-            </div>
-        </div>
+<%--        <div class="layui-form-item">--%>
+<%--            <label class="layui-form-label">舒适度阈值</label>--%>
+<%--            <div class="layui-input-inline">--%>
+<%--                <input type="text" name="max_di" value="${sc.max_di}" lay-verify="di" placeholder="请输入最大阈值"--%>
+<%--                       autocomplete="off"--%>
+<%--                       class="layui-input">--%>
+<%--            </div>--%>
+<%--        </div>--%>
 
         <div class="layui-form-item">
             <label class="layui-form-label">景区类型</label>
             <select id="list" name="scenictype">
                 <c:forEach items="${list}" var="item">
-                    <option id="${item.id}" value="${item.scenictype_name}" data-id="${item.scenictype_name}">${item.scenictype_name}</option>
+                    <option id="${item.id}" value="${item.id}" data-id="${item.id}">${item.scenictype_name}</option>
                 </c:forEach>
             </select>
         </div>
@@ -112,6 +112,42 @@
             <label class="layui-form-label">车流承载量</label>
             <div class="layui-input-inline">
                 <input type="text" name="max_car" value="${sc.max_car}" lay-verify="number" placeholder="请输入最大车流量"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">团队票价</label>
+            <div class="layui-input-inline">
+                <input type="text" name="teamTickets" value="${sc.teamTickets}" lay-verify="required" placeholder="请输入团队票价"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">散客票价</label>
+            <div class="layui-input-inline">
+                <input type="text" name="individualTickets" value="${sc.individualTickets}" lay-verify="required" placeholder="请输入散客票价"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">电商票价</label>
+            <div class="layui-input-inline">
+                <input type="text" name="internetTickets" value="${sc.internetTickets}" lay-verify="required" placeholder="请输入电商票价"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">停车费单价</label>
+            <div class="layui-input-inline">
+                <input type="text" name="parkingRate" value="${sc.parkingRate}" lay-verify="required" placeholder="请输入停车费单价"
                        autocomplete="off"
                        class="layui-input">
             </div>

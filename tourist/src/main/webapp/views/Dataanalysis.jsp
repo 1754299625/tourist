@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: snake
-  Date: 2017/7/25
+  Date: 2021/03/04
   Time: 10:36
   To change this template use File | Settings | File Templates.
 --%>
@@ -59,8 +59,8 @@
                 <thead>
                 <tr>
                     <th>景区编号</th>
-                    <th>景区名称</th>
                     <th>景区地址</th>
+                    <th>景区名称</th>
                     <th>日期</th>
                     <th>操作</th>
                 </tr>

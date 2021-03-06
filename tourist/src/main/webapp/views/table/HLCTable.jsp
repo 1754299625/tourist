@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: snake
-  Date: 2017/7/25
+  Date: 2021/03/04
   Time: 10:40
   To change this template use File | Settings | File Templates.
 --%>
@@ -131,7 +131,7 @@
             dataType: "json",		//返回数据形式为json
             success: function (result) {
                 //请求成功时执行该函数内容，result即为服务器返回的json对象
-                alert("123" + JSON.stringify(result));
+                // alert("123" + JSON.stringify(result));
                 if (result != null && result.length > 0) {
                     for (var i = 0; i < result.length; i++) {
                         //time.push(result[i].time_hour);

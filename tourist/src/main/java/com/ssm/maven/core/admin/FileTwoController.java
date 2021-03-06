@@ -91,7 +91,7 @@ public class FileTwoController {
             Msg = "批量导入EXCEL失败！";
             request.getSession().setAttribute("Msg", Msg);
         }
-        return "success";
+        return Msg;
     }
 
     /**

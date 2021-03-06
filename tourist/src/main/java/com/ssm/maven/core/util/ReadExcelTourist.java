@@ -1,30 +1,39 @@
 package com.ssm.maven.core.util;
 
+import com.ssm.maven.core.entity.Scenicspot;
 import com.ssm.maven.core.entity.Tourist;
+import com.ssm.maven.core.service.MenuService;
+import com.ssm.maven.core.service.ScenicService;
 import org.apache.poi.hssf.usermodel.HSSFDataFormatter;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+
 
 /**
  * @author wkr
  * @Date 2016-11-18
  * 工具类读取Excel类中内容
  */
+
 public class ReadExcelTourist {
+
+    private ScenicService scenicService;
+
     //总行数
     private int totalRows = 0;
     //总条数
@@ -33,8 +42,8 @@ public class ReadExcelTourist {
     private String errorMsg;
 
     //构造方法
-    public ReadExcelTourist() {
-    }
+//    public ReadExcelTourist() {
+//    }
 
     //获取总行数
     public int getTotalRows() {
@@ -57,8 +66,8 @@ public class ReadExcelTourist {
      * @param /fielName
      * @return
      */
-    public List<Tourist> getExcelInfo(MultipartFile Mfile) {
-
+    public List<Tourist> getExcelInfo(MultipartFile Mfile, ScenicService scenicService) {
+        this.scenicService = scenicService;
         //把spring文件上传的MultipartFile转换成CommonsMultipartFile类型
         CommonsMultipartFile cf = (CommonsMultipartFile) Mfile; //获取本地存储路径
         File file = new File("D:\\fileupload");
@@ -112,7 +121,14 @@ public class ReadExcelTourist {
      * @param wb
      * @return
      */
-    private List<Tourist> readExcelValue(Workbook wb) throws ParseException {
+    private List<Tourist> readExcelValue(Workbook wb) throws Exception {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("散客", 1);
+        map.put("团体", 2);
+        map.put("电商", 3);
+        List<Scenicspot> list = scenicService.getScenicspotAll(new Scenicspot());
+        Map<String, Integer> map1 = list.stream().collect(Collectors.toMap(Scenicspot::getScenicname, Scenicspot::getId));
+
         //得到第一个shell
         Sheet sheet = wb.getSheetAt(0);
 
@@ -135,25 +151,28 @@ public class ReadExcelTourist {
             if (row == null) continue;
             tourist = new Tourist();
 
-            //循环Excel的列
+            //循环Excel的列  tourist.setTourist_type(Integer.parseInt(getValue(cell)));
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             SimpleDateFormat simpleDateFormat_2 = new SimpleDateFormat("yyyy-MM-dd");
             for (int c = 0; c < this.totalCells; c++) {
                 Cell cell = row.getCell(c);
                 if (null != cell) {
-                    if (c == 0) {
-                        tourist.setTourist_type(Integer.parseInt(getValue(cell)));//得到行中第一个值
-                    } else if (c == 1) {
-                        //System.out.println(getValue(cell) instanceof String);
-                        tourist.setEnter_day(simpleDateFormat_2.parse(getValue(cell)));//得到行中第二个值
-                    } else if (c == 2) {
-                        tourist.setScience_id(Integer.parseInt(getValue(cell)));//得到行中第二个值
-                    } else if (c == 3) {
-                        tourist.setEnter_time(simpleDateFormat.parse(getValue(cell)));//得到行中第三个值
-                    } else if (c == 4) {
-                        tourist.setLeave_time(simpleDateFormat.parse(getValue(cell)));//得到行中第四个值
-                    } else if (c == 5) {
-                        tourist.setTime_hour(Integer.parseInt(getValue(cell)));//得到行中第五个值
+                    if (c == 1) {
+                        tourist.setSex(getValue(cell).equals("0")?0: 1);// 性别
+                    }else if (c == 2) {
+                        tourist.setAge(Integer.parseInt(getValue(cell)));// 年龄
+                    }else if (c == 3) {
+                        tourist.setRegione(getValue(cell));// 所属地区
+                    }else if (c == 4) {
+                        tourist.setTourist_type(map.get(getValue(cell)));// 游客类型
+                    }else if (c == 5) {
+                        tourist.setEnter_day(simpleDateFormat_2.parse(getValue(cell)));// 日期
+                    } else if (c == 6) {
+                        tourist.setScience_id(map1.get(getValue(cell)));//景区名称
+                    } else if (c == 7) {
+                        tourist.setEnter_time(simpleDateFormat.parse(getValue(cell)));// 入园时间
+                    } else if (c == 8) {
+                        tourist.setLeave_time(simpleDateFormat.parse(getValue(cell)));// 离开时间
                     }
                 }
             }

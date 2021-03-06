@@ -29,15 +29,20 @@ public class ScenicController {
     @Resource
     private ScenictypeService scenictypeService;
 
+    /**
+     * 搜索所有进去信息
+     * @param pageIndex
+     * @param pageSize
+     * @param name
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("getScenicAll")
     public @ResponseBody
     PageBean<ScenicspotCustom> getScenicAll(Integer pageIndex, Integer pageSize, String name) throws Exception {
-        //System.out.println("页数"+pageIndex+pageSize);
         scenicspot.setScenicname(name);
         List list = scenicService.getScenicspotAll(pageIndex, pageSize, scenicspot);
         PageBean<ScenicspotCustom> pb = new PageBean<ScenicspotCustom>(list);
-        System.out.println(name);
-        //System.out.println(pb.getCount());
         return pb;
     }
 
@@ -65,6 +70,12 @@ public class ScenicController {
         return mv;
     }
 
+    /**
+     *
+     * @param model
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("getScenicMenu")
     public ModelAndView getScenicMenu(Model model) throws Exception {
         ModelAndView mv = new ModelAndView();
@@ -118,7 +129,6 @@ public class ScenicController {
         String uuid = UUIDTool.getUUID();
         // System.out.println(uuid);
         scenicspot.setCode(uuid);
-        //System.out.println(scenicspot.getCode());
         scenicspot.setCreate_time(new Date());
         scenicspot.setUpdate_time(new Date());
         scenicspot.setDel_flag(1);
@@ -146,15 +156,19 @@ public class ScenicController {
         return mv;
     }
 
+    /**
+     * 修改景区
+     * @param model
+     * @param scenicspot
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("editScenicMenu")
     public ModelAndView editScenicMenu(ModelMap model, Scenicspot scenicspot, HttpServletRequest request) throws Exception {
         System.out.println("进入修改!");
-        //String a = request.getParameter("address");
-        // System.out.println(a + "sada");
-        System.out.println(scenicspot.toString());
         ModelAndView mv = new ModelAndView();
         String str = "error";
-
         try {
             scenicService.updateByCode(scenicspot);
             scenicspot = scenicService.getScenicspotByCode(scenicspot.getCode());

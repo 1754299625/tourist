@@ -45,6 +45,16 @@ public class DataanalysisController {
         return mv;
     }
 
+//    @RequestMapping("getScenicMenu")
+//    public ModelAndView getScenicMenu(Model model) throws Exception {
+//        System.out.println("进入页面");
+//        ModelAndView mv = new ModelAndView();
+//        List<Scenicspot> list = scenicService.getScenicspotAll(scenicspot);
+//        model.addAttribute("list", list);
+//        mv.setViewName("views/Dataanalysis");
+//        return mv;
+//    }
+
     @RequestMapping("getDITable")
     public ModelAndView getDITable(ModelMap model, String scenic_id, String enter_time, String scenic_name) throws Exception {
         System.out.println("进入页面");

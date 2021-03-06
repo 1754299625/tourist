@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: snake
-  Date: 2017/7/25
+  Date: 2021/03/04
   Time: 10:30
   To change this template use File | Settings | File Templates.
 --%>
@@ -43,7 +43,7 @@
 
             <div class="layui-form-item" style="display: inline-block;">
                <%-- <span>&nbsp;</span>--%>
-                <a href="javascript:;" class="layui-btn layui-btn-small" id="search" style="margin-left: 20px;margin-top: 4px;">
+                <a href="javascript:;" class="layui-btn layui-btn-small" id="search" style="margin-left: 14px;margin-top: 4px;">
                     <i class="layui-icon">&#xe615;</i> 搜索景区
                 </a>
                 <a href="javascript:;" class="layui-btn layui-btn-small" id="searchAll" style="margin-top: 4px;">

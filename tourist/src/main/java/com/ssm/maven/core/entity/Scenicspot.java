@@ -39,11 +39,19 @@ public class Scenicspot {
 
     private double max_di;// 舒适度阈值
 
+    private double teamTickets;// 团队票价
+
+    private double individualTickets;// 散客票价
+
+    private double internetTickets;// 电商票价
+
+    private double parkingRate;// 停车费单价
+
     @Override
     public String toString() {
         return "Scenicspot{" +
                 "id=" + id +
-                ", scenictype=" + scenictype +
+                ", scenictype='" + scenictype + '\'' +
                 ", scenicname='" + scenicname + '\'' +
                 ", address='" + address + '\'' +
                 ", telephone='" + telephone + '\'' +
@@ -52,11 +60,15 @@ public class Scenicspot {
                 ", create_time=" + create_time +
                 ", update_time=" + update_time +
                 ", creator=" + creator +
-                ", status=" + status +
+                ", status='" + status + '\'' +
                 ", updator=" + updator +
                 ", del_flag=" + del_flag +
                 ", code='" + code + '\'' +
                 ", max_di=" + max_di +
+                ", teamTickets=" + teamTickets +
+                ", individualTickets=" + individualTickets +
+                ", internetTickets=" + internetTickets +
+                ", parkingRate=" + parkingRate +
                 '}';
     }
 
@@ -178,5 +190,37 @@ public class Scenicspot {
 
     public void setMax_di(double max_di) {
         this.max_di = max_di;
+    }
+
+    public double getTeamTickets() {
+        return teamTickets;
+    }
+
+    public void setTeamTickets(double teamTickets) {
+        this.teamTickets = teamTickets;
+    }
+
+    public double getIndividualTickets() {
+        return individualTickets;
+    }
+
+    public void setIndividualTickets(double individualTickets) {
+        this.individualTickets = individualTickets;
+    }
+
+    public double getInternetTickets() {
+        return internetTickets;
+    }
+
+    public void setInternetTickets(double internetTickets) {
+        this.internetTickets = internetTickets;
+    }
+
+    public double getParkingRate() {
+        return parkingRate;
+    }
+
+    public void setParkingRate(double parkingRate) {
+        this.parkingRate = parkingRate;
     }
 }
