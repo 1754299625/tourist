@@ -1,10 +1,11 @@
 package com.ssm.maven.core.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.ssm.maven.core.dao.CarDao;
+import com.ssm.maven.core.dao.ParkingCarMapper;
 import com.ssm.maven.core.entity.CarCustom;
 import com.ssm.maven.core.entity.ParkingCar;
 import com.ssm.maven.core.entity.Scenicspot;
+import com.ssm.maven.core.entity.TouristCustom;
 import com.ssm.maven.core.service.CarService;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +16,17 @@ import java.util.List;
 @Service("CarService")
 public class CarServiceImpl implements CarService {
     @Resource
-    CarDao carDao;
+    ParkingCarMapper parkingCarMapper;
 
     @Override
     public List<Scenicspot> getAllScenicspot() {
-        List<Scenicspot> s = carDao.getAllScenicspot();
+        List<Scenicspot> s = parkingCarMapper.getAllScenicspot();
         return s;
     }
 
     @Override
     public List<CarCustom> getAllSpotCar() {
-        return carDao.getAllSpotCar();
+        return parkingCarMapper.getAllSpotCar();
     }
 
     /**
@@ -36,7 +37,7 @@ public class CarServiceImpl implements CarService {
         List<CarCustom> list = new ArrayList<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
-            list = carDao.getAllSpotCar();
+            list = parkingCarMapper.getAllSpotCar();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,7 +52,7 @@ public class CarServiceImpl implements CarService {
         List<CarCustom> list = new ArrayList<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
-            list = carDao.findSpotCarByNameOrTime(carCustom);
+            list = parkingCarMapper.findSpotCarByNameOrTime(carCustom);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,12 +61,12 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<ParkingCar> findAllCarByCodeAndTime(ParkingCar parkingCar) throws Exception {
-        return carDao.findAllCarByCodeAndTime(parkingCar);
+        return parkingCarMapper.findAllCarByCodeAndTime(parkingCar);
     }
 
     @Override
     public Integer getAllCarNumber(ParkingCar parkingCar) throws Exception {
-        return carDao.getAllCarNumber(parkingCar);
+        return parkingCarMapper.getAllCarNumber(parkingCar);
     }
 
     /**
@@ -76,7 +77,7 @@ public class CarServiceImpl implements CarService {
         List<ParkingCar> list = new ArrayList<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
-            list = carDao.findAllCarByCodeAndTime(parkingCar);
+            list = parkingCarMapper.findAllCarByCodeAndTime(parkingCar);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,7 +91,7 @@ public class CarServiceImpl implements CarService {
         List<ParkingCar> list = new ArrayList<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
-            list = carDao.findCar(parkingCar);
+            list = parkingCarMapper.findCar(parkingCar);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -103,15 +104,26 @@ public class CarServiceImpl implements CarService {
      */
     public void deleteByCodeAndTime(ParkingCar parkingCar) {
         try {
-            carDao.deleteByCodeAndTime(parkingCar);
+            parkingCarMapper.deleteByCodeAndTime(parkingCar);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    @Override
+    public List<Integer> searchCarHLCInfor(CarCustom carCustom) throws Exception {
+        List<Integer> list = parkingCarMapper.searchCarHLCInfor(carCustom);
+        return list;
+    }
+
+    @Override
+    public Integer getCount(CarCustom carCustom) throws Exception {
+        return parkingCarMapper.getCount(carCustom);
+    }
+
     public void insertCarBatch(List<ParkingCar> parkingCarList) {
         try {
-            carDao.insertCarBatch(parkingCarList);
+            parkingCarMapper.insertCarBatch(parkingCarList);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,7 +133,7 @@ public class CarServiceImpl implements CarService {
     public List<CarCustom> getAllCar() {
         List<CarCustom> carCustomList = null;
         try {
-            carCustomList = carDao.getAllCar();
+            carCustomList = parkingCarMapper.getAllCar();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -131,7 +143,7 @@ public class CarServiceImpl implements CarService {
     public Scenicspot getNumberByCode(int code) {
         Scenicspot scenicspot = new Scenicspot();
         try {
-            scenicspot = carDao.getNumberByCode(code);
+            scenicspot = parkingCarMapper.getNumberByCode(code);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -141,7 +153,7 @@ public class CarServiceImpl implements CarService {
     public int getNumByCodeAndTime(ParkingCar parkingCar) {
         int i = 0;
         try {
-            i = carDao.getNumByCodeAndTime(parkingCar);
+            i = parkingCarMapper.getNumByCodeAndTime(parkingCar);
         } catch (Exception e) {
             e.printStackTrace();
         }

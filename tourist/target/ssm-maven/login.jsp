@@ -22,22 +22,22 @@
 <body class="layui-bg-cyan">
 <div class="admin-login-block">
     <div class="admin-login-text">景区旅游数据<span>管理分析平台</span></div>
-    <div class="login-font"><span>系统登录</span></div>
+    <div class="login-font"><span></span></div>
     <div class="admin-login-form">
         <form class="layui-form" action="${pageContext.request.contextPath}/user/login.do" lay-filter="login">
             <div class="layui-form-item">
-                <div class="layui-input-block admin-login-input"><input type="text" name="account" required
+                <div class="layui-input-block admin-login-input"><input type="text" name="account" required style="height: 43px;"
                                                                         lay-verify="required" placeholder="登录账号" value="123"
                                                                         autocomplete="off" class="layui-input"></div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-input-block admin-login-input"><input type="password" name="password" required
+                <div class="layui-input-block admin-login-input"><input type="password" name="password" required style="margin-top: 22px;height: 43px;"
                                                                         lay-verify="required" placeholder="登录密码" value="111"
                                                                         autocomplete="off" class="layui-input"></div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block admin-login-input">
-                    <button class="layui-btn admin-login-btn" lay-submit>后台登录</button>
+                    <button style="margin-top: 10px;height: 43px;" class="layui-btn admin-login-btn" lay-submit>后台登录</button>
                 </div>
             </div>
         </form>

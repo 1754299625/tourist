@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.ssm.maven.core.dao.TouristDao">
+<mapper namespace="com.ssm.maven.core.dao.TouristMapper">
     <resultMap id="BaseResultMap" type="com.ssm.maven.core.entity.Tourist">
         <result column="id" property="id" jdbcType="INTEGER"/>
         <result column="tourist_type" property="touristType" jdbcType="INTEGER"/>
@@ -95,6 +95,9 @@
         AND scenicspot.del_flag = 1 AND tourist.del_flag = 1
     </select>
 
+
+
+
     <select id="searchTouristInfor" parameterType="com.ssm.maven.core.entity.TouristCustom"
             resultType="com.ssm.maven.core.entity.TouristCustom">
         SELECT tourist.*,scenicspot.* FROM tourist left join scenicspot ON
@@ -117,8 +120,9 @@
         AND tourist.del_flag = 1 ORDER BY tourist.id ASC
     </select>
 
+
     <select id="getCount" parameterType="com.ssm.maven.core.entity.TouristCustom" resultType="java.lang.Integer">
-        SELECT COUNT(DISTINCT time_hour) FROM tourist WHERE tourist.enter_day = #{enter_day} AND tourist.science_id = #{science_id}
+        SELECT COUNT(DISTINCT id) FROM tourist WHERE tourist.enter_day = #{enter_day} AND tourist.science_id = #{science_id}
     </select>
 
     <update id="updateTouristInfor" parameterType="com.ssm.maven.core.entity.Tourist">
@@ -143,5 +147,398 @@
     <select id="getNumByCodeAndTime" parameterType="com.ssm.maven.core.entity.Tourist" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM tourist WHERE #{enter_time} BETWEEN tourist.enter_time and tourist.leave_time AND tourist.del_flag=1 AND tourist.science_id=#{science_id}
     </select>
+
+
+    <!--    查询实时游客数目-->
+    <select id="searchHLCTouristInfor" parameterType="com.ssm.maven.core.entity.TouristCustom"
+            resultType="java.lang.Integer">
+        SELECT COUNT(tourist.id) FROM tourist left join scenicspot ON scenicspot.id = tourist.science_id
+        WHERE enter_day = #{enter_day} AND scenicspot.id = 1
+        AND (
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 8:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 8:59:59')
+        )
+        OR
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 8:00:00') AND
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 8:59:59') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 8:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 8:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 8:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 8:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 8:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 8:59:59')
+        )
+        )
+        AND tourist.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(tourist.id) FROM tourist left join scenicspot ON scenicspot.id = tourist.science_id
+        WHERE enter_day = #{enter_day} AND scenicspot.id = 1
+        AND (
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 9:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 9:59:59')
+        )
+        OR
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 9:00:00') AND
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 9:59:59') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 9:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 9:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 9:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 9:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 9:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 9:59:59')
+        )
+        )
+        AND tourist.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(tourist.id) FROM tourist left join scenicspot ON scenicspot.id = tourist.science_id
+        WHERE enter_day = #{enter_day} AND scenicspot.id = 1
+        AND (
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 10:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 10:59:59')
+        )
+        OR
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 10:00:00') AND
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 10:59:59') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 10:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 10:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 10:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 10:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 10:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 10:59:59')
+        )
+        )
+        AND tourist.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(tourist.id) FROM tourist left join scenicspot ON scenicspot.id = tourist.science_id
+        WHERE enter_day = #{enter_day} AND scenicspot.id = 1
+        AND (
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 11:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 11:59:59')
+        )
+        OR
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 11:00:00') AND
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 11:59:59') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 11:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 11:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 11:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 11:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 11:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 11:59:59')
+        )
+        )
+        AND tourist.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(tourist.id) FROM tourist left join scenicspot ON scenicspot.id = tourist.science_id
+        WHERE enter_day = #{enter_day} AND scenicspot.id = 1
+        AND (
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 12:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 12:59:59')
+        )
+        OR
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 12:00:00') AND
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 12:59:59') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 12:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 12:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 12:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 12:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 12:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 12:59:59')
+        )
+        )
+        AND tourist.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(tourist.id) FROM tourist left join scenicspot ON scenicspot.id = tourist.science_id
+        WHERE enter_day = #{enter_day} AND scenicspot.id = 1
+        AND (
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 13:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 13:59:59')
+        )
+        OR
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 13:00:00') AND
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 13:59:59') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 13:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 13:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 13:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 13:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 13:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 13:59:59')
+        )
+        )
+        AND tourist.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(tourist.id) FROM tourist left join scenicspot ON scenicspot.id = tourist.science_id
+        WHERE enter_day = #{enter_day} AND scenicspot.id = 1
+        AND (
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 14:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 14:59:59')
+        )
+        OR
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 14:00:00') AND
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 14:59:59') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 14:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 14:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 14:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 14:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 14:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 14:59:59')
+        )
+        )
+        AND tourist.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(tourist.id) FROM tourist left join scenicspot ON scenicspot.id = tourist.science_id
+        WHERE enter_day = #{enter_day} AND scenicspot.id = 1
+        AND (
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 15:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 15:59:59')
+        )
+        OR
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 15:00:00') AND
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 15:59:59') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 15:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 15:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 15:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 15:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 15:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 15:59:59')
+        )
+        )
+        AND tourist.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(tourist.id) FROM tourist left join scenicspot ON scenicspot.id = tourist.science_id
+        WHERE enter_day = #{enter_day} AND scenicspot.id = 1
+        AND (
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 16:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 16:59:59')
+        )
+        OR
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 16:00:00') AND
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 16:59:59') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 16:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 16:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 16:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 16:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 16:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 16:59:59')
+        )
+        )
+        AND tourist.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(tourist.id) FROM tourist left join scenicspot ON scenicspot.id = tourist.science_id
+        WHERE enter_day = #{enter_day} AND scenicspot.id = 1
+        AND (
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 17:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 17:59:59')
+        )
+        OR
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 17:00:00') AND
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 17:59:59') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 17:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 17:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 17:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 17:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 17:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 17:59:59')
+        )
+        )
+        AND tourist.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(tourist.id) FROM tourist left join scenicspot ON scenicspot.id = tourist.science_id
+        WHERE enter_day = #{enter_day} AND scenicspot.id = 1
+        AND (
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 18:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 18:59:59')
+        )
+        OR
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 18:00:00') AND
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 18:59:59') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 18:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 18:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 18:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 18:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 18:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 18:59:59')
+        )
+        )
+        AND tourist.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(tourist.id) FROM tourist left join scenicspot ON scenicspot.id = tourist.science_id
+        WHERE enter_day = #{enter_day} AND scenicspot.id = 1
+        AND (
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 19:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 19:59:59')
+        )
+        OR
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 19:00:00') AND
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 19:59:59') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 19:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 19:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 19:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 19:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 19:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 19:59:59')
+        )
+        )
+        AND tourist.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(tourist.id) FROM tourist left join scenicspot ON scenicspot.id = tourist.science_id
+        WHERE enter_day = #{enter_day} AND scenicspot.id = 1
+        AND (
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 20:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 20:59:59')
+        )
+        OR
+        (
+        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 20:00:00') AND
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 20:59:59') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 20:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 20:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 20:00:00') AND
+        tourist.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 20:59:59')
+        )
+        OR
+        (
+        tourist.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 20:00:00') AND
+        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 20:59:59')
+        )
+        )
+        AND tourist.del_flag = 1
+        <!--        SELECT tourist.*,scenicspot.* FROM tourist left join scenicspot ON scenicspot.id = tourist.science_id-->
+        <!--        WHERE enter_day = #{enter_day} AND scenicspot.id = 1 AND-->
+        <!--        tourist.enter_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 8:00:00')-->
+        <!--        AND tourist.enter_time <= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 8:59:59')-->
+        <!--        AND-->
+        <!--        tourist.leave_time >= CONCAT(DATE_FORMAT(#{enter_day},'%Y-%m-%d'),' 8:00:00')-->
+
+        <!--        AND tourist.del_flag = '1' ORDER BY tourist.id ASC-->
+
+
+    </select>
+
+
+
 
 </mapper>

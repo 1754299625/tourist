@@ -1,7 +1,7 @@
 package com.ssm.maven.core.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.ssm.maven.core.dao.TouristDao;
+import com.ssm.maven.core.dao.TouristMapper;
 import com.ssm.maven.core.entity.ScenicspotCustom;
 import com.ssm.maven.core.entity.Tourist;
 import com.ssm.maven.core.entity.TouristCustom;
@@ -15,63 +15,70 @@ import java.util.List;
 public class TouristServiceImpl implements TouristService {
 
     @Resource
-    private TouristDao touristDao;
+    private TouristMapper touristMapper;
 
     @Override
     public void deleteTouristByCode(ScenicspotCustom scenicspotCustom) throws Exception {
-        touristDao.deleteTouristByCode(scenicspotCustom);
+        touristMapper.deleteTouristByCode(scenicspotCustom);
     }
 
     @Override
     public List<TouristCustom> getTouristList(TouristCustom touristCustom) throws Exception {
-        return touristDao.getTouristList(touristCustom);
+        return touristMapper.getTouristList(touristCustom);
     }
 
     @Override
     public List<TouristCustom> getTouristList(Integer pageIndex, Integer pageSize, TouristCustom touristCustom) throws Exception {
         PageHelper.startPage(pageIndex, pageSize);
-        List<TouristCustom> list = touristDao.getTouristList(touristCustom);
+        List<TouristCustom> list = touristMapper.getTouristList(touristCustom);
         return list;
     }
 
     @Override
     public List<TouristCustom> searchTouristInfor(Integer pageIndex, Integer pageSize, TouristCustom touristCustom) throws Exception {
         PageHelper.startPage(pageIndex, pageSize);
-        List<TouristCustom> list = touristDao.searchTouristInfor(touristCustom);
+        List<TouristCustom> list = touristMapper.searchTouristInfor(touristCustom);
         return list;
     }
 
     @Override
     public List<TouristCustom> searchTouristInfor(TouristCustom touristCustom) throws Exception {
-        List<TouristCustom> list = touristDao.searchTouristInfor(touristCustom);
+        List<TouristCustom> list = touristMapper.searchTouristInfor(touristCustom);
         return list;
     }
 
     @Override
+    public List<Integer> searchHLCTouristInfor(TouristCustom touristCustom) throws Exception {
+        List<Integer> list = touristMapper.searchHLCTouristInfor(touristCustom);
+        return list;
+    }
+
+
+    @Override
     public void deleteByTouristCode(TouristCustom touristCustom) throws Exception {
-        touristDao.deleteByTouristCode(touristCustom);
+        touristMapper.deleteByTouristCode(touristCustom);
     }
 
     @Override
     public void updateTouristInfor(Tourist tourist) throws Exception {
-        touristDao.updateTouristInfor(tourist);
+        touristMapper.updateTouristInfor(tourist);
     }
 
     @Override
     public void insertTouristBatch(List<Tourist> touristlist) throws Exception {
-        touristDao.insertTouristBatch(touristlist);
+        touristMapper.insertTouristBatch(touristlist);
     }
 
     @Override
     public Integer getCount(TouristCustom touristCustom) throws Exception {
-        return touristDao.getCount(touristCustom);
+        return touristMapper.getCount(touristCustom);
     }
 
     @Override
     public int getNumByCodeAndTime(Tourist tourist) {
         int i = 0;
         try {
-            i = touristDao.getNumByCodeAndTime(tourist);
+            i = touristMapper.getNumByCodeAndTime(tourist);
         } catch (Exception e) {
             e.printStackTrace();
         }

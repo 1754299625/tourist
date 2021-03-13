@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.ssm.maven.core.mappers.ParkingCarMapper">
+<mapper namespace="com.ssm.maven.core.dao.ParkingCarMapper">
     <resultMap id="BaseResultMap" type="com.ssm.maven.core.entity.ParkingCar">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="license_car" property="license_car" jdbcType="VARCHAR"/>
@@ -138,4 +138,403 @@
         science_id = #{science_id,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+    <select id="getCount" parameterType="com.ssm.maven.core.entity.CarCustom" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT id) FROM parking_car WHERE parking_car.day = #{end_day} AND parking_car.science_id = #{science_id}
+    </select>
+
+
+    <!--    查询实时车流数目-->
+    <select id="searchCarHLCInfor" parameterType="com.ssm.maven.core.entity.CarCustom"
+            resultType="java.lang.Integer">
+        SELECT COUNT(parking_car.id) FROM parking_car left join scenicspot ON scenicspot.id = parking_car.science_id
+        WHERE day = #{end_day} AND scenicspot.id = 1
+        AND (
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 8:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 8:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 8:00:00') AND
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 8:59:59') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 8:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 8:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 8:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 8:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 8:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 8:59:59')
+        )
+        )
+        AND parking_car.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(parking_car.id) FROM parking_car left join scenicspot ON scenicspot.id = parking_car.science_id
+        WHERE day = #{end_day} AND scenicspot.id = 1
+        AND (
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 9:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 9:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 9:00:00') AND
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 9:59:59') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 9:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 9:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 9:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 9:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 9:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 9:59:59')
+        )
+        )
+        AND parking_car.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(parking_car.id) FROM parking_car left join scenicspot ON scenicspot.id = parking_car.science_id
+        WHERE day = #{end_day} AND scenicspot.id = 1
+        AND (
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 10:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 10:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 10:00:00') AND
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 10:59:59') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 10:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 10:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 10:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 10:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 10:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 10:59:59')
+        )
+        )
+        AND parking_car.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(parking_car.id) FROM parking_car left join scenicspot ON scenicspot.id = parking_car.science_id
+        WHERE day = #{end_day} AND scenicspot.id = 1
+        AND (
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 11:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 11:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 11:00:00') AND
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 11:59:59') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 11:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 11:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 11:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 11:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 11:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 11:59:59')
+        )
+        )
+        AND parking_car.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(parking_car.id) FROM parking_car left join scenicspot ON scenicspot.id = parking_car.science_id
+        WHERE day = #{end_day} AND scenicspot.id = 1
+        AND (
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 12:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 12:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 12:00:00') AND
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 12:59:59') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 12:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 12:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 12:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 12:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 12:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 12:59:59')
+        )
+        )
+        AND parking_car.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(parking_car.id) FROM parking_car left join scenicspot ON scenicspot.id = parking_car.science_id
+        WHERE day = #{end_day} AND scenicspot.id = 1
+        AND (
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 13:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 13:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 13:00:00') AND
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 13:59:59') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 13:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 13:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 13:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 13:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 13:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 13:59:59')
+        )
+        )
+        AND parking_car.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(parking_car.id) FROM parking_car left join scenicspot ON scenicspot.id = parking_car.science_id
+        WHERE day = #{end_day} AND scenicspot.id = 1
+        AND (
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 14:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 14:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 14:00:00') AND
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 14:59:59') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 14:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 14:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 14:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 14:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 14:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 14:59:59')
+        )
+        )
+        AND parking_car.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(parking_car.id) FROM parking_car left join scenicspot ON scenicspot.id = parking_car.science_id
+        WHERE day = #{end_day} AND scenicspot.id = 1
+        AND (
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 15:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 15:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 15:00:00') AND
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 15:59:59') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 15:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 15:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 15:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 15:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 15:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 15:59:59')
+        )
+        )
+        AND parking_car.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(parking_car.id) FROM parking_car left join scenicspot ON scenicspot.id = parking_car.science_id
+        WHERE day = #{end_day} AND scenicspot.id = 1
+        AND (
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 16:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 16:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 16:00:00') AND
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 16:59:59') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 16:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 16:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 16:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 16:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 16:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 16:59:59')
+        )
+        )
+        AND parking_car.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(parking_car.id) FROM parking_car left join scenicspot ON scenicspot.id = parking_car.science_id
+        WHERE day = #{end_day} AND scenicspot.id = 1
+        AND (
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 17:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 17:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 17:00:00') AND
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 17:59:59') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 17:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 17:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 17:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 17:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 17:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 17:59:59')
+        )
+        )
+        AND parking_car.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(parking_car.id) FROM parking_car left join scenicspot ON scenicspot.id = parking_car.science_id
+        WHERE day = #{end_day} AND scenicspot.id = 1
+        AND (
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 18:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 18:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 18:00:00') AND
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 18:59:59') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 18:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 18:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 18:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 18:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 18:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 18:59:59')
+        )
+        )
+        AND parking_car.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(parking_car.id) FROM parking_car left join scenicspot ON scenicspot.id = parking_car.science_id
+        WHERE day = #{end_day} AND scenicspot.id = 1
+        AND (
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 19:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 19:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 19:00:00') AND
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 19:59:59') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 19:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 19:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 19:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 19:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 19:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 19:59:59')
+        )
+        )
+        AND parking_car.del_flag = 1
+
+        UNION ALL
+
+        SELECT COUNT(parking_car.id) FROM parking_car left join scenicspot ON scenicspot.id = parking_car.science_id
+        WHERE day = #{end_day} AND scenicspot.id = 1
+        AND (
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 20:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 20:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 20:00:00') AND
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 20:59:59') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 20:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 20:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 20:00:00') AND
+        parking_car.leave_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 20:59:59')
+        )
+        OR
+        (
+        parking_car.enter_time <![CDATA[<=]]> CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 20:00:00') AND
+        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 20:59:59')
+        )
+        )
+        AND parking_car.del_flag = 1
+        <!--        SELECT parking_car.*,scenicspot.* FROM parking_car left join scenicspot ON scenicspot.id = parking_car.science_id-->
+        <!--        WHERE day = #{end_day} AND scenicspot.id = 1 AND-->
+        <!--        parking_car.enter_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 8:00:00')-->
+        <!--        AND parking_car.enter_time <= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 8:59:59')-->
+        <!--        AND-->
+        <!--        parking_car.leave_time >= CONCAT(DATE_FORMAT(#{end_day},'%Y-%m-%d'),' 8:00:00')-->
+
+        <!--        AND parking_car.del_flag = '1' ORDER BY parking_car.id ASC-->
+
+
+    </select>
+
+
+
+
 </mapper>

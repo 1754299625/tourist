@@ -2,17 +2,24 @@ package com.ssm.maven.core.entity;
 
 public class HLCTable {
 
-    private int mq_h;
+    private int mq_h;// 景区最大承载量
 
-    private int hf;
+    private int hf;// 当前客流量/车流量
 
-    private float hlc;
+    private float hlc;// 客流承载量/车流承载量   当前客流量/总客流量
 
-    private int time_hour;
+    private int time_hour;// 游客时间段 无用
 
-    public HLCTable(int mq_h, int hf) {
-        this.mq_h = mq_h;
+    private String day;
+
+    public HLCTable() {
+    }
+
+    public HLCTable(int hf, float hlc, int time_hour) {
+
         this.hf = hf;
+        this.hlc = hlc;
+        this.time_hour = time_hour;
     }
 
     @Override
@@ -23,6 +30,14 @@ public class HLCTable {
                 ", hlc=" + hlc +
                 ", time_hour=" + time_hour +
                 '}';
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 
     public int getMq_h() {

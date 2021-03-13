@@ -7,7 +7,8 @@ import java.util.Date;
 public class ParkingCar {
     private Integer id;
 
-    private String license_car;
+    private String license_car;// 车牌号
+
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date enter_time;
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")

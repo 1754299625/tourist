@@ -10,42 +10,64 @@
     <!-- mybatis及数据源配置 -->
     <import resource="classpath:spring-context-mybatis.xml"/>
 
-    <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
-    <bean id="transactionManager"
+    <bean id="txManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
+        <property name="dataSource" ref="dataSource" />
     </bean>
+    <!-- <tx:annotation-driven transaction-manager="txManager" /> -->
 
-    <!-- 配置事务通知属性 -->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <!-- 定义事务传播属性 -->
+    <aop:config>
+        <aop:pointcut id="transactionPointcut" expression="execution(* com.ssm.maven.core.service.*.*(..)))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="transactionPointcut"/> <!-- Spring提供的事务通知 -->
+    </aop:config>
+    <!-- 代表事务通知的bean，以下配置实际上在Spring容器里面也会注册一个事务(通知)管理器，专门用来做事务处理的bean -->
+    <tx:advice id="txAdvice" transaction-manager="txManager">
         <tx:attributes>
-            <tx:method name="insert*" propagation="REQUIRED"/>
-            <tx:method name="update*" propagation="REQUIRED"/>
-            <tx:method name="upd*" propagation="REQUIRED"/>
-            <tx:method name="edit*" propagation="REQUIRED"/>
-            <tx:method name="save*" propagation="REQUIRED"/>
-            <tx:method name="add*" propagation="REQUIRED"/>
-            <tx:method name="new*" propagation="REQUIRED"/>
-            <tx:method name="set*" propagation="REQUIRED"/>
-            <tx:method name="remove*" propagation="REQUIRED"/>
-            <tx:method name="delete*" propagation="REQUIRED"/>
-            <tx:method name="del*" propagation="REQUIRED"/>
-            <tx:method name="change*" propagation="REQUIRED"/>
-            <tx:method name="check*" propagation="REQUIRED"/>
-            <tx:method name="get*" propagation="REQUIRED" read-only="true"/>
-            <tx:method name="search*" propagation="REQUIRED" read-only="true"/>
-            <tx:method name="find*" propagation="REQUIRED" read-only="true"/>
-            <tx:method name="load*" propagation="REQUIRED" read-only="true"/>
-            <tx:method name="*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="get*" read-only="true" propagation="NOT_SUPPORTED"/>
+            <tx:method name="*"/> <!-- 其他方法使用默认的事务传播属性 -->
         </tx:attributes>
     </tx:advice>
 
-    <!-- 配置事务切面 -->
-    <aop:config>
-        <aop:pointcut id="serviceOperation"
-                      expression="(execution(* com.ssm.maven.core.service.*.*(..)))"/>
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation"/>
-    </aop:config>
+<!--    <bean id="personService" class="cn.itcast.service.impl.PersonServiceBean2">-->
+<!--        <property name="dataSource" ref="dataSource" />-->
+<!--    </bean>-->
+
+<!--    &lt;!&ndash; (事务管理)transaction manager, use JtaTransactionManager for global tx &ndash;&gt;-->
+<!--    <bean id="transactionManager"-->
+<!--          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+<!--        <property name="dataSource" ref="dataSource"/>-->
+<!--    </bean>-->
+
+<!--    &lt;!&ndash; 配置事务通知属性 &ndash;&gt;-->
+<!--    <tx:advice id="txAdvice" transaction-manager="transactionManager">-->
+<!--        &lt;!&ndash; 定义事务传播属性 &ndash;&gt;-->
+<!--        <tx:attributes>-->
+<!--            <tx:method name="insert*" propagation="REQUIRED"/>-->
+<!--            <tx:method name="update*" propagation="REQUIRED"/>-->
+<!--            <tx:method name="upd*" propagation="REQUIRED"/>-->
+<!--            <tx:method name="edit*" propagation="REQUIRED"/>-->
+<!--            <tx:method name="save*" propagation="REQUIRED"/>-->
+<!--            <tx:method name="add*" propagation="REQUIRED"/>-->
+<!--            <tx:method name="new*" propagation="REQUIRED"/>-->
+<!--            <tx:method name="set*" propagation="REQUIRED"/>-->
+<!--            <tx:method name="remove*" propagation="REQUIRED"/>-->
+<!--            <tx:method name="delete*" propagation="REQUIRED"/>-->
+<!--            <tx:method name="del*" propagation="REQUIRED"/>-->
+<!--            <tx:method name="change*" propagation="REQUIRED"/>-->
+<!--            <tx:method name="check*" propagation="REQUIRED"/>-->
+<!--            <tx:method name="get*" propagation="REQUIRED" read-only="true"/>-->
+<!--            <tx:method name="search*" propagation="REQUIRED" read-only="true"/>-->
+<!--            <tx:method name="find*" propagation="REQUIRED" read-only="true"/>-->
+<!--            <tx:method name="load*" propagation="REQUIRED" read-only="true"/>-->
+<!--            <tx:method name="*" propagation="REQUIRED" read-only="true"/>-->
+<!--        </tx:attributes>-->
+<!--    </tx:advice>-->
+
+<!--    &lt;!&ndash; 配置事务切面 &ndash;&gt;-->
+<!--    <aop:config>-->
+<!--        <aop:pointcut id="serviceOperation"-->
+<!--                      expression="(execution(* com.ssm.maven.core.service.*.*(..)))"/>-->
+<!--        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation"/>-->
+<!--    </aop:config>-->
 
 </beans>

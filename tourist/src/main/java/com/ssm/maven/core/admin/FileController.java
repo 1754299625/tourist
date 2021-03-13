@@ -146,17 +146,8 @@ public class FileController {
             objs[9] = sc.getInternetTickets();
             objs[10] = sc.getParkingRate();
             objs[11] = sc.getStatus();
-//            //日期类型处理
-//            Date date = sc.getCreate_time();
-//            String dateStr = "";
-//            if (date != null) {
-//                SimpleDateFormat df = new SimpleDateFormat(format);
-//                dateStr = df.format(date);
-//            }
-//            objs[9] = dateStr;
             dataList.add(objs);
         }
-        System.out.println("进入文件导出");
         leadingOutExcel = new LeadingOutExcel(fileName, title, rowName, dataList, response);
         try {
             leadingOutExcel.export();
@@ -202,8 +193,6 @@ public class FileController {
         //创建处理EXCEL
         ReadExcelTourist readExcel = new ReadExcelTourist();
 
-
-
         //解析excel，获取客户信息集合。
         List<Tourist> TouristList = readExcel.getExcelInfo(file1, scenicService);
         if (TouristList != null && !TouristList.toString().equals("[]") && TouristList.size() >= 1) {
@@ -214,13 +203,11 @@ public class FileController {
             //迭代添加客户信息（注：实际上这里也可以直接将customerList集合作为参数，在Mybatis的相应映射文件中使用foreach标签进行批量添加。）
             for (Tourist ts : TouristList) {
                 //这里可以做添加数据库的功能
-//                System.out.println(ts.toString());
                 ts.setTourist_code(UUIDTool.getUUID());
                 ts.setDel_flag(1);
             }
             try {
                 touristService.insertTouristBatch(TouristList);
-                System.out.println("插入！");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -302,7 +289,6 @@ public class FileController {
             dataList.add(objs);
 
         }
-        System.out.println("客流信息文件导出");
         leadingOutExcel = new LeadingOutExcel(fileName, title, rowName, dataList, response);
         try {
             leadingOutExcel.export();
@@ -325,10 +311,8 @@ public class FileController {
         String format = "yyyy-MM-dd";
         String fileName = "客流汇总信息-" + DateUtil.formatDate(new Date(), format);
 
-//        String format_1 = "yyyy-MM-dd hh:mm:ss";
         String title = "客流信息";
         String[] rowName = {"编号", "景区名称", "地址", "日期", "客流最大承载量", "当前客流量"};
-//        ScenicspotCustom touristCustom = new ScenicspotCustom();
         try {
             dataSet = scenicService.getScenicspotAndDay();
         } catch (Exception e) {

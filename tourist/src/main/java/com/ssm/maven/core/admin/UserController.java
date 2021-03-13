@@ -1,9 +1,7 @@
 package com.ssm.maven.core.admin;
 
 import com.ssm.maven.core.entity.SysUser;
-import com.ssm.maven.core.entity.User;
-import com.ssm.maven.core.service.SysyuserService;
-import com.ssm.maven.core.service.UserService;
+import com.ssm.maven.core.service.SysyUserService;
 import com.ssm.maven.core.util.MD5Util;
 import com.ssm.maven.core.util.ResponseUtil;
 import net.sf.json.JSONObject;
@@ -22,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author 1034683568@qq.com
+ * @author 1754299625@qq.com
  * @project_name ssm-maven
  * @date 2017-3-1
  */
@@ -31,9 +29,8 @@ import javax.servlet.http.HttpSession;
 public class UserController {
 
     @Resource
-    private UserService userService;
-    @Resource
-    private SysyuserService sysyuserService;
+    private SysyUserService sysyUserService;
+
     private static final Logger log = Logger.getLogger(UserController.class);// 日志文件
 
 
@@ -53,14 +50,13 @@ public class UserController {
         } catch (Exception e) {
             user.setPassword("");
         }
-        SysUser resultUser = sysyuserService.login(user);
+        SysUser resultUser = sysyUserService.login(user);
         log.info("request: user/login , user: " + user.toString());
         if (resultUser == null) {
             request.setAttribute("user", user);
             request.setAttribute("errorMsg", "请认真核对账号、密码！");
             return "login";
         } else {
-            //System.out.println(resultUser.toString());
             HttpSession session = request.getSession();
             session.setAttribute("currentUser", resultUser);
             MDC.put("Account", user.getAccount());
@@ -69,29 +65,29 @@ public class UserController {
     }
 
 
-    /**
-     * 修改密码
-     *
-     * @param user
-     * @param response
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/modifyPassword")
-    public String modifyPassword(User user, HttpServletResponse response) throws Exception {
-        String MD5pwd = MD5Util.MD5Encode(user.getPassword(), "UTF-8");
-        user.setPassword(MD5pwd);
-        int resultTotal = userService.updateUser(user);
-        JSONObject result = new JSONObject();
-        if (resultTotal > 0) {
-            result.put("success", true);
-        } else {
-            result.put("success", false);
-        }
-        log.info("request: user/modifyPassword , user: " + user.toString());
-        ResponseUtil.write(response, result);
-        return null;
-    }
+//    /**
+//     * 修改密码
+//     *
+//     * @param user
+//     * @param response
+//     * @return
+//     * @throws Exception
+//     */
+//    @RequestMapping("/modifyPassword")
+//    public String modifyPassword(SysUser user, HttpServletResponse response) throws Exception {
+//        String MD5pwd = MD5Util.MD5Encode(user.getPassword(), "UTF-8");
+//        user.setPassword(MD5pwd);
+//        int resultTotal = userService.updateUser(user);
+//        JSONObject result = new JSONObject();
+//        if (resultTotal > 0) {
+//            result.put("success", true);
+//        } else {
+//            result.put("success", false);
+//        }
+//        log.info("request: user/modifyPassword , user: " + user.toString());
+//        ResponseUtil.write(response, result);
+//        return null;
+//    }
 
     /**
      * 退出系统
@@ -106,81 +102,55 @@ public class UserController {
         return "redirect:/login.jsp";
     }
 
-    /**
-     * @param page
-     * @param rows
-     * @param s_user
-     * @param response
-     * @return
-     * @throws Exception
 
-    @RequestMapping("/list")
-    public String list(@RequestParam(value = "page", required = false) String page, @RequestParam(value = "rows", required = false) String rows, User s_user, HttpServletResponse response) throws Exception {
-        PageBean pageBean = new PageBean(Integer.parseInt(page), Integer.parseInt(rows));
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("userName", StringUtil.formatLike(s_user.getUserName()));
-        map.put("start", pageBean.getStart());
-        map.put("size", pageBean.getPageSize());
-        List<User> userList = userService.findUser(map);
-        Long total = userService.getTotalUser(map);
-        JSONObject result = new JSONObject();
-        JSONArray jsonArray = JSONArray.fromObject(userList);
-        result.put("rows", jsonArray);
-        result.put("total", total);
-        log.info("request: user/list , map: " + map.toString());
-        ResponseUtil.write(response, result);
-        return null;
-    }
-     */
+//    /**
+//     * 添加或修改管理员
+//     *
+//     * @param response
+//     * @return
+//     * @throws Exception
+//     */
+//    @RequestMapping("/save")
+//    public String save(User user, HttpServletResponse response) throws Exception {
+//        int resultTotal = 0;
+//        String MD5pwd = MD5Util.MD5Encode(user.getPassword(), "UTF-8");
+//        user.setPassword(MD5pwd);
+//        if (user.getId() == null) {
+//            resultTotal = userService.addUser(user);
+//        } else {
+//            resultTotal = userService.updateUser(user);
+//        }
+//        JSONObject result = new JSONObject();
+//        if (resultTotal > 0) {
+//            result.put("success", true);
+//        } else {
+//            result.put("success", false);
+//        }
+//        log.info("request: user/save , user: " + user.toString());
+//        ResponseUtil.write(response, result);
+//        return null;
+//    }
 
-    /**
-     * 添加或修改管理员
-     *
-     * @param response
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/save")
-    public String save(User user, HttpServletResponse response) throws Exception {
-        int resultTotal = 0;
-        String MD5pwd = MD5Util.MD5Encode(user.getPassword(), "UTF-8");
-        user.setPassword(MD5pwd);
-        if (user.getId() == null) {
-            resultTotal = userService.addUser(user);
-        } else {
-            resultTotal = userService.updateUser(user);
-        }
-        JSONObject result = new JSONObject();
-        if (resultTotal > 0) {
-            result.put("success", true);
-        } else {
-            result.put("success", false);
-        }
-        log.info("request: user/save , user: " + user.toString());
-        ResponseUtil.write(response, result);
-        return null;
-    }
-
-    /**
-     * 删除管理员
-     *
-     * @param ids
-     * @param response
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/delete")
-    public String delete(@RequestParam(value = "ids") String ids, HttpServletResponse response) throws Exception {
-        JSONObject result = new JSONObject();
-        String[] idsStr = ids.split(",");
-        for (int i = 0; i < idsStr.length; i++) {
-            userService.deleteUser(Integer.parseInt(idsStr[i]));
-        }
-        result.put("success", true);
-        log.info("request: user/delete , ids: " + ids);
-        ResponseUtil.write(response, result);
-        return null;
-    }
+//    /**
+//     * 删除管理员
+//     *
+//     * @param ids
+//     * @param response
+//     * @return
+//     * @throws Exception
+//     */
+//    @RequestMapping("/delete")
+//    public String delete(@RequestParam(value = "ids") String ids, HttpServletResponse response) throws Exception {
+//        JSONObject result = new JSONObject();
+//        String[] idsStr = ids.split(",");
+//        for (int i = 0; i < idsStr.length; i++) {
+//            userService.deleteUser(Integer.parseInt(idsStr[i]));
+//        }
+//        result.put("success", true);
+//        log.info("request: user/delete , ids: " + ids);
+//        ResponseUtil.write(response, result);
+//        return null;
+//    }
 
     /**
      * 用户信息查询
@@ -190,7 +160,7 @@ public class UserController {
     public ModelAndView getUserInfo(SysUser user, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
         user = (SysUser) session.getAttribute("currentUser");
-        SysUser sysUser = sysyuserService.getUserInfo(user.getAccount());
+        SysUser sysUser = sysyUserService.getUserInfo(user.getAccount());
         modelAndView.addObject("currentUser", sysUser);
         modelAndView.setViewName("views/person");
         System.out.println("你哈哈哈哈哈哈");
@@ -203,7 +173,7 @@ public class UserController {
     @RequestMapping("personInfoSubmit")
     public ModelAndView personInfoSUbmit(SysUser currentUser, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
-        sysyuserService.updateUserInfo(currentUser);
+        sysyUserService.updateUserInfo(currentUser);
         session.setAttribute("currentUser", currentUser);
         modelAndView.addObject("currentUser", currentUser);
         modelAndView.setViewName("views/person");

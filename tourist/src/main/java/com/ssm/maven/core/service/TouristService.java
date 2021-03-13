@@ -18,6 +18,8 @@ public interface TouristService {
 
     public List<TouristCustom> searchTouristInfor(TouristCustom touristCustom) throws Exception;
 
+    public List<Integer> searchHLCTouristInfor(TouristCustom touristCustom) throws Exception;
+
     public void deleteByTouristCode(TouristCustom touristCustom) throws Exception;
 
     public void updateTouristInfor(Tourist tourist) throws Exception;

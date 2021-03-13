@@ -175,12 +175,13 @@
                     myChart.hideLoading();
                 }
 
-            },
-            error: function (errorMsg) {
-                //请求失败时执行该函数
-                alert("图表请求数据失败，可能是服务器开小差了");
-                myChart.hideLoading();
             }
+            // ,
+            // error: function (errorMsg) {
+            //     //请求失败时执行该函数
+            //     alert("图表请求数据失败，可能是服务器开小差了");
+            //     myChart.hideLoading();
+            // }
         })
 
         myChart.setOption(option);	//载入图表

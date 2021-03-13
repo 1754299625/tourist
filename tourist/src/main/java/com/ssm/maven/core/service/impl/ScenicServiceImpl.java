@@ -1,7 +1,7 @@
 package com.ssm.maven.core.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.ssm.maven.core.dao.ScenicDao;
+import com.ssm.maven.core.dao.ScenicspotMapper;
 import com.ssm.maven.core.entity.Scenicspot;
 import com.ssm.maven.core.entity.ScenicspotCustom;
 import com.ssm.maven.core.service.ScenicService;
@@ -15,7 +15,7 @@ import java.util.List;
 public class ScenicServiceImpl implements ScenicService {
 
     @Resource
-    private ScenicDao scenicDao;
+    private ScenicspotMapper scenicspotMapper;
     @Resource
     private Scenicspot scenicspot;
 
@@ -25,7 +25,7 @@ public class ScenicServiceImpl implements ScenicService {
         List<Scenicspot> list = new ArrayList<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
-            list = scenicDao.getScenicspotAll(scenicspot);
+            list = scenicspotMapper.getScenicspotAll(scenicspot);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -36,7 +36,7 @@ public class ScenicServiceImpl implements ScenicService {
 
         List<Scenicspot> list = new ArrayList<>();
         try {
-            list = scenicDao.getScenicspotAll(scenicspot);
+            list = scenicspotMapper.getScenicspotAll(scenicspot);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -48,7 +48,7 @@ public class ScenicServiceImpl implements ScenicService {
         List<Scenicspot> list = new ArrayList<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
-            list = scenicDao.getScenicspotByName(scenicname);
+            list = scenicspotMapper.getScenicspotByName(scenicname);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -57,12 +57,12 @@ public class ScenicServiceImpl implements ScenicService {
 
     @Override
     public void insertSelective(Scenicspot scenicspot) throws Exception {
-        scenicDao.insertSelective(scenicspot);
+        scenicspotMapper.insertSelective(scenicspot);
     }
 
     @Override
     public Scenicspot getScenicspotByCode(String str) throws Exception {
-        return scenicDao.getScenicspotByCode(str);
+        return scenicspotMapper.getScenicspotByCode(str);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class ScenicServiceImpl implements ScenicService {
         List<Scenicspot> list = new ArrayList<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
-            list = scenicDao.getScenicspotlistByCode(code);
+            list = scenicspotMapper.getScenicspotlistByCode(code);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,24 +79,24 @@ public class ScenicServiceImpl implements ScenicService {
 
     @Override
     public void updateByCode(Scenicspot scenicspot) throws Exception {
-        scenicDao.updateByCode(scenicspot);
+        scenicspotMapper.updateByCode(scenicspot);
     }
 
     @Override
     public void deleteByCode(String code) throws Exception {
-        scenicDao.deleteByCode(code);
+        scenicspotMapper.deleteByCode(code);
     }
 
     @Override
     public List<ScenicspotCustom> getScenicspotAndDay(Integer pageIndex, Integer pageSize) throws Exception {
         PageHelper.startPage(pageIndex, pageSize);
-        List<ScenicspotCustom> list = scenicDao.getScenicspotAndDay();
+        List<ScenicspotCustom> list = scenicspotMapper.getScenicspotAndDay();
         return list;
     }
 
     @Override
     public List<ScenicspotCustom> getScenicspotAndDay() throws Exception {
-        List<ScenicspotCustom> list = scenicDao.getScenicspotAndDay();
+        List<ScenicspotCustom> list = scenicspotMapper.getScenicspotAndDay();
         return list;
     }
 
@@ -104,18 +104,18 @@ public class ScenicServiceImpl implements ScenicService {
     public List<ScenicspotCustom> getpeopleInfor(Integer pageIndex, Integer pageSize, ScenicspotCustom scenicspotCustom) throws Exception {
 
         PageHelper.startPage(pageIndex, pageSize);
-        List<ScenicspotCustom> list = scenicDao.getpeopleInfor(scenicspotCustom);
+        List<ScenicspotCustom> list = scenicspotMapper.getpeopleInfor(scenicspotCustom);
         return list;
     }
 
     @Override
     public void insertScenicspotList(List<Scenicspot> scenicspotlist) throws Exception {
-        scenicDao.insertScenicspotList(scenicspotlist);
+        scenicspotMapper.insertScenicspotList(scenicspotlist);
     }
 
     @Override
     public Scenicspot getScenicspotById(Integer id) throws Exception {
-        return scenicDao.getScenicspotById(id);
+        return scenicspotMapper.getScenicspotById(id);
     }
 
 

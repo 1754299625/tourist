@@ -41,105 +41,105 @@ public class DataanalysisTwoController {
         return mv;
     }
 
-    /*
-    \
-    获得总舒适度的信息
-     */
-    @RequestMapping("getCDInfor")
-    public @ResponseBody
-    List<CDBean> getCDInfor(String enter_time, String scenic_id) throws Exception {
-        ModelAndView modelAndView = new ModelAndView();
-        DiTable diTable = new DiTable();
-        List<DiTable> diTables = new ArrayList<>();
-        TouristCustom touristCustom = new TouristCustom();
-        List<TouristCustom> touristCustoms = new ArrayList<>();
-        ParkingCar parkingCar = new ParkingCar();
-        List<ParkingCar> parkingCars = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date day = sdf.parse(enter_time);
-        Integer id = Integer.parseInt(scenic_id);
-        //天气的信息
-        diTable.setScenic_id(id);
-        diTable.setTime_date(day);
-        diTables = temperatureService.getAllTemperature(diTable);
-        System.out.println(diTables.size() + "天气");
-        //客流的信息
-        touristCustom.setScience_id(id);
-        touristCustom.setEnter_day(day);
-        touristCustoms = touristService.getTouristList(touristCustom);
-        System.out.println(touristCustoms.size() + "客流");
-        //车流的信息
-        parkingCar.setScience_id(id);
-        parkingCar.setDay(day);
-        parkingCars = carService.findAllCarByCodeAndTime(parkingCar);
-        System.out.println(parkingCars.size() + "车辆");
-        double CD = 0.0;
-        double celsius = 0.0;
-        double relative_humidity = 0.0;
-        int people = 0;
-        int car = 0;
-        Double DI = 0.0;
-        double HLC = 0.0;
-        double VLC = 0.0;
-        int numpeople = 0;
-        int numcar = 0;
-        List<CDBean> cdBeanList = new ArrayList<CDBean>();
-        String datetime1 = enter_time;
-        Scenicspot scenicspot = new Scenicspot();
-        scenicspot = carService.getNumberByCode(id);
-        System.out.println("最大车流量" + scenicspot.getMax_car() + "客流" + scenicspot.getMax_people());
-        for (int i = 0; i < 24; i++) {
-            //天气CD
-            for (int j = 0; j < diTables.size(); j++) {
-                if (diTables.get(j).getTime_hour() == i) {
-                    celsius = diTables.get(j).getCelsius();
-                    relative_humidity = diTables.get(j).getRelative_humidity();
-                    DI = DIUtil.returnDI(celsius, relative_humidity) / 100;
-
-                }
-            }
-
-            if (i < 10) {
-                datetime1 = enter_time + " 0" + i + ":00:00";
-            } else {
-                datetime1 = enter_time + " " + i + ":00:00";
-            }
-            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            Date datetime = sdf1.parse(datetime1);
-            //客流
-            Tourist tourist1 = new Tourist();
-            tourist1.setEnter_time(datetime);
-            tourist1.setScience_id(id);
-            numpeople = touristService.getNumByCodeAndTime(tourist1);
-            HLC = numpeople / scenicspot.getMax_people();
-
-            //车流
-            ParkingCar parkingCar1 = new ParkingCar();
-            parkingCar1.setEnter_time(datetime);
-            parkingCar1.setScience_id(id);
-            numcar = carService.getNumByCodeAndTime(parkingCar1);
-            VLC = numcar / scenicspot.getMax_car();
-
-            CD = DIUtil.retrunCD(DI, HLC, VLC);
-
-            CDBean cdBean = new CDBean();
-            cdBean.setHour(i);
-            cdBean.setCd(CD);
-            cdBeanList.add(cdBean);
-            CD = 0.0;
-            celsius = 0.0;
-            relative_humidity = 0.0;
-            people = 0;
-            car = 0;
-            DI = 0.0;
-            HLC = 0.0;
-            VLC = 0.0;
-            numpeople = 0;
-            numcar = 0;
-            datetime1 = enter_time;
-        }
-        return cdBeanList;
-    }
+//    /*
+//    \
+//    获得总舒适度的信息
+//     */
+//    @RequestMapping("getCDInfor")
+//    public @ResponseBody
+//    List<CDBean> getCDInfor(String enter_time, String scenic_id) throws Exception {
+//        ModelAndView modelAndView = new ModelAndView();
+//        DiTable diTable = new DiTable();
+//        List<DiTable> diTables = new ArrayList<>();
+//        TouristCustom touristCustom = new TouristCustom();
+//        List<TouristCustom> touristCustoms = new ArrayList<>();
+//        ParkingCar parkingCar = new ParkingCar();
+//        List<ParkingCar> parkingCars = new ArrayList<>();
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        Date day = sdf.parse(enter_time);
+//        Integer id = Integer.parseInt(scenic_id);
+//        //天气的信息
+//        diTable.setScenic_id(id);
+//        diTable.setTime_date(day);
+//        diTables = temperatureService.getAllTemperature(diTable);
+//        System.out.println(diTables.size() + "天气");
+//        //客流的信息
+//        touristCustom.setScience_id(id);
+//        touristCustom.setEnter_day(day);
+//        touristCustoms = touristService.getTouristList(touristCustom);
+//        System.out.println(touristCustoms.size() + "客流");
+//        //车流的信息
+//        parkingCar.setScience_id(id);
+//        parkingCar.setDay(day);
+//        parkingCars = carService.findAllCarByCodeAndTime(parkingCar);
+//        System.out.println(parkingCars.size() + "车辆");
+//        double CD = 0.0;
+//        double celsius = 0.0;
+//        double relative_humidity = 0.0;
+//        int people = 0;
+//        int car = 0;
+//        Double DI = 0.0;
+//        double HLC = 0.0;
+//        double VLC = 0.0;
+//        int numpeople = 0;
+//        int numcar = 0;
+//        List<CDBean> cdBeanList = new ArrayList<CDBean>();
+//        String datetime1 = enter_time;
+//        Scenicspot scenicspot = new Scenicspot();
+//        scenicspot = carService.getNumberByCode(id);
+//        System.out.println("最大车流量" + scenicspot.getMax_car() + "客流" + scenicspot.getMax_people());
+//        for (int i = 0; i < 24; i++) {
+//            //天气CD
+//            for (int j = 0; j < diTables.size(); j++) {
+//                if (diTables.get(j).getTime_hour() == i) {
+//                    celsius = diTables.get(j).getCelsius();
+//                    relative_humidity = diTables.get(j).getRelative_humidity();
+//                    DI = DIUtil.returnDI(celsius, relative_humidity) / 100;
+//
+//                }
+//            }
+//
+//            if (i < 10) {
+//                datetime1 = enter_time + " 0" + i + ":00:00";
+//            } else {
+//                datetime1 = enter_time + " " + i + ":00:00";
+//            }
+//            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//            Date datetime = sdf1.parse(datetime1);
+//            //客流
+//            Tourist tourist1 = new Tourist();
+//            tourist1.setEnter_time(datetime);
+//            tourist1.setScience_id(id);
+//            numpeople = touristService.getNumByCodeAndTime(tourist1);
+//            HLC = numpeople / scenicspot.getMax_people();
+//
+//            //车流
+//            ParkingCar parkingCar1 = new ParkingCar();
+//            parkingCar1.setEnter_time(datetime);
+//            parkingCar1.setScience_id(id);
+//            numcar = carService.getNumByCodeAndTime(parkingCar1);
+//            VLC = numcar / scenicspot.getMax_car();
+//
+//            CD = DIUtil.retrunCD(DI, HLC, VLC);
+//
+//            CDBean cdBean = new CDBean();
+//            cdBean.setHour(i);
+//            cdBean.setCd(CD);
+//            cdBeanList.add(cdBean);
+//            CD = 0.0;
+//            celsius = 0.0;
+//            relative_humidity = 0.0;
+//            people = 0;
+//            car = 0;
+//            DI = 0.0;
+//            HLC = 0.0;
+//            VLC = 0.0;
+//            numpeople = 0;
+//            numcar = 0;
+//            datetime1 = enter_time;
+//        }
+//        return cdBeanList;
+//    }
 
     /**
      * 车辆信息

@@ -53,6 +53,16 @@ public class CarController {
         return pb;
     }
 
+    /**
+     * 车流列表搜索
+     * @param pageIndex
+     * @param pageSize
+     * @param scenicname
+     * @param start_day
+     * @param end_day
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("findSpotCarByNameOrTime")
     public @ResponseBody
     PageBean<CarCustom> findSpotCarByNameOrTime(Integer pageIndex, Integer pageSize, String scenicname, String start_day, String end_day) throws Exception {
@@ -67,6 +77,7 @@ public class CarController {
             carCustom.setEnd_day(leave_time1);
         }
         carCustom.setScenicname(scenicname);
+        // 检索数据
         List list = carService.findSpotCarByNameOrTime(pageIndex, pageSize, carCustom);
         PageBean<CarCustom> pb = new PageBean<CarCustom>(list);
         return pb;
@@ -91,7 +102,7 @@ public class CarController {
             science_id = String.valueOf(park.get(0).getScience_id());
         }
         int number = carService.getAllCarNumber(parkingCar);
-        System.out.println("总数量：" + number);
+//        System.out.println("总数量：" + number);
         modelAndView.addObject("park", park);
         modelAndView.addObject("number", number);
         modelAndView.addObject("scenicname", name);

@@ -129,7 +129,7 @@
             dataType: "json",		//返回数据形式为json
             success: function (result) {
                 //请求成功时执行该函数内容，result即为服务器返回的json对象
-                alert("123" + JSON.stringify(result));
+                // alert("123" + JSON.stringify(result));
                 if (result != null && result.length > 0) {
                     for (var i = 0; i < result.length; i++) {
                         //time.push(result[i].time_hour);		//挨个取出温度等值并填入前面声明的温度、湿度、压强等数组
@@ -152,16 +152,17 @@
                 }
                 else {
                     //返回的数据为空时显示提示信息
-                    alert("图表请求数据为空，可能服务器暂未录入观测数据，您可以稍后再试！");
+                    layer.msg("图表请求数据为空，可能服务器暂未录入观测数据，您可以稍后再试！");
                     myChart.hideLoading();
                 }
 
-            },
-            error: function (errorMsg) {
-                //请求失败时执行该函数
-                alert("图表请求数据失败，可能是服务器开小差了");
-                myChart.hideLoading();
             }
+            // ,
+            // error: function (errorMsg) {
+            //     //请求失败时执行该函数
+            //     alert("图表请求数据失败，可能是服务器开小差了");
+            //     myChart.hideLoading();
+            // }
         })
 
         myChart.setOption(option);	//载入图表
@@ -208,12 +209,13 @@
                         myChart.hideLoading();
                     }
 
-                },
-                error: function (errorMsg) {
-                    //请求失败时执行该函数
-                    alert("图表请求数据失败，可能是服务器开小差了");
-                    myChart.hideLoading();
                 }
+                // ,
+                // error: function (errorMsg) {
+                //     //请求失败时执行该函数
+                //     alert("图表请求数据失败，可能是服务器开小差了");
+                //     myChart.hideLoading();
+                // }
             })
 
             //myChart.setOption(option);

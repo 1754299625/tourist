@@ -59,4 +59,8 @@ public interface CarService {
     public Scenicspot getNumberByCode(int code);
 
     public int getNumByCodeAndTime(ParkingCar parkingCar);
+
+    List<Integer> searchCarHLCInfor(CarCustom carCustom) throws Exception;
+
+    Integer getCount(CarCustom carCustom) throws Exception;
 }

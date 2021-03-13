@@ -6,13 +6,28 @@ import java.util.Date;
 
 public class CarCustom extends ParkingCar {
     private String code;
+
     private String scenicname;
+
     private String address;
+
     private String max_car;
+
     @JSONField(format = "yyyy-MM-dd")
     private Date start_day;
+
     @JSONField(format = "yyyy-MM-dd")
     private Date end_day;
+
+    private Integer carCount;
+
+    public Integer getCarCount() {
+        return carCount;
+    }
+
+    public void setCarCount(Integer carCount) {
+        this.carCount = carCount;
+    }
 
     public String getScenicname() {
         return scenicname;

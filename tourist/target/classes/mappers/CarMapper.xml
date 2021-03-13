@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.ssm.maven.core.dao.CarDao">
+<mapper namespace="com.ssm.maven.core.dao.ParkingCarMapper">
     <!--查询所有景区-->
     <select id="getAllScenicspot" resultType="com.ssm.maven.core.entity.Scenicspot">
         SELECT * FROM scenicspot
     </select>
+
     <!--获取所有景区每天的车辆信息-->
     <select id="getAllSpotCar" resultType="com.ssm.maven.core.entity.CarCustom">
-        SELECT DISTINCT parking_car.day,scenicspot.code,scenicspot.address,scenicspot.scenicname,scenicspot.max_car
-        FROM parking_car,scenicspot
-        WHERE parking_car.science_id=scenicspot.code AND scenicspot.del_flag=1 AND parking_car.del_flag=1
+        SELECT DISTINCT parking_car.day,COUNT(parking_car.id) carCount,scenicspot.code,scenicspot.address,scenicspot.scenicname,scenicspot.max_car
+        FROM parking_car LEFT JOIN scenicspot
+        ON parking_car.science_id = scenicspot.code
+        WHERE scenicspot.del_flag=1 AND parking_car.del_flag=1
         ORDER BY scenicspot.code ASC, parking_car.day ASC
     </select>
 
@@ -17,9 +19,10 @@
     <select id="findSpotCarByNameOrTime" parameterType="com.ssm.maven.core.entity.CarCustom"
             resultType="com.ssm.maven.core.entity.CarCustom">
         SELECT DISTINCT
-        parking_car.day,scenicspot.code,scenicspot.address,scenicspot.scenicname,scenicspot.max_car
-        FROM parking_car,scenicspot
-        WHERE parking_car.science_id=scenicspot.code AND scenicspot.del_flag=1 AND parking_car.del_flag=1
+        parking_car.day,COUNT(parking_car.id) carCount,scenicspot.code,scenicspot.address,scenicspot.scenicname,scenicspot.max_car
+        FROM parking_car LEFT JOIN scenicspot
+        ON parking_car.science_id = scenicspot.code
+        WHERE scenicspot.del_flag=1 AND parking_car.del_flag=1
         <if test="start_day != null and start_day != '' and end_day != null and end_day!='' ">
             AND parking_car.day between #{start_day} and #{end_day}
         </if>
@@ -29,7 +32,7 @@
         <if test="end_day != null and end_day!='' and start_day == null ">
             AND parking_car.day <![CDATA[<=]]> #{end_day}
         </if>
-        AND scenicname=#{scenicname}
+        AND scenicname = #{scenicname}
         ORDER BY scenicspot.code ASC, parking_car.day ASC
     </select>
 

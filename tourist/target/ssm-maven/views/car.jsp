@@ -30,7 +30,7 @@
                 <div class="layui-input-inline" id="leave_time">
                     <input name="leave_time" class="layui-input" placeholder="截止日" id="LAY_demorange_e">
                 </div>
-                <div class="layui-input-inline">
+                <div class="layui-input-inline" style="margin-top: 2px;">
                     <select id="sce">
                         <c:forEach items="${scenicspot}" var="items">
                             <option value="${items.scenicname}">${items.scenicname}</option>
@@ -39,19 +39,16 @@
                     </select>
                 </div>
             </div>
-            <div class="layui-form-item" style="display: inline-block;">
+            <div class="layui-form-item" style="display: inline-block;margin-top: 4px;">
+                <span>&nbsp;</span>
                 <span>&nbsp;</span>
                 <a href="javascript:;" class="layui-btn layui-btn-small" id="search">
                     <i class="layui-icon">&#xe615;</i> 搜索
                 </a>
-
-                <input type="file" name="file" lay-type="file" class="layui-upload-file" lay-title="导入文件" id="import">
-                <a href="javascript:;" class="layui-btn layui-btn-small" id="exportAll">
-                    <i class="layui-icon">&#xe61d;</i> 导出详情
-                </a>
                 <a href="javascript:;" class="layui-btn layui-btn-small" id="export">
-                    <i class="layui-icon">&#xe62a;</i> 导出汇总
+                    <i class="layui-icon">&#xe62a;</i> 导出数据
                 </a>
+
             </div>
 
         </div>
@@ -68,6 +65,7 @@
                     <th>景区地址</th>
                     <th>日期</th>
                     <th>车辆最大承载量</th>
+                    <th>当前车流量</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -91,11 +89,12 @@
         <td>{{ item.address }}</td>
         <td>{{ item.day }}</td>
         <td>{{ item.max_car }}</td>
+        <td>{{ item.carCount }}</td>
         <td>
             <a href="javascript:;" data-id="{{ item.code }}" data-time="{{ item.day }}"
-               data-name="{{ item.scenicname }}" class="layui-btn layui-btn-mini info" onclick="info(this)">详情</a>
-            <a href="javascript:;" data-id="{{ item.code }}" data-time="{{ item.day }}"
-               class="layui-btn layui-btn-danger layui-btn-mini del" onclick="del(this)">删除</a>
+               data-name="{{ item.scenicname }}" class="layui-btn layui-btn-mini info" onclick="info(this)">明细数据</a>
+<%--            <a href="javascript:;" data-id="{{ item.code }}" data-time="{{ item.day }}"--%>
+<%--               class="layui-btn layui-btn-danger layui-btn-mini del" onclick="del(this)">删除</a>--%>
         </td>
     </tr>
     {{# }); }}
@@ -125,7 +124,7 @@
             tempElem: '#tpl', //模块容器
             pageConfig: { //分页参数配置
                 elem: '#paged', //分页容器
-                pageSize: 6 //分页大小
+                pageSize: 10 //分页大小
             },
             success: function () { //渲染成功的回调
                 // alert('渲染成功');
@@ -150,6 +149,8 @@
 
             }
         });
+
+        // 搜索
         $('#search').on('click', function () {
             layui.use(['paging', 'form'], function () {
                 var $ = layui.jquery,
@@ -174,7 +175,7 @@
                     tempElem: '#tpl', //模块容器
                     pageConfig: { //分页参数配置
                         elem: '#paged', //分页容器
-                        pageSize: 6 //分页大小
+                        pageSize: 10 //分页大小
                     },
                     success: function () { //渲染成功的回调
                         // alert('渲染成功');
@@ -204,6 +205,7 @@
     });
 </script>
 <script>
+    // 详情
     function info(e) {
         layui.use('layer', function () {
             var $ = layui.jquery,
@@ -212,7 +214,7 @@
             var time = e.getAttribute("data-time");
             var name = e.getAttribute("data-name");
             layer.open({
-                title: '修改景区',
+                title: '停车场当日信息',
                 maxmin: true,
                 type: 2,
                 content: "${pageContext.request.contextPath}/car/getCarInfoByCodeAndTime.do?code=" + code + "&&day=" + time + "&&name=" + name,
@@ -297,9 +299,7 @@
             end.elem = this
             laydate(end);
         }
-        $('#exportAll').on('click', function () {
-            location.href = "${pageContext.request.contextPath}/FileTwo/exportCarExcelAll.do";
-        })
+
         $('#export').on('click', function () {
             location.href = "${pageContext.request.contextPath}/FileTwo/exportCarExcel.do";
         })
@@ -311,17 +311,5 @@
         $('select').searchableSelect();
     });
 </script>
-<script>
-    layui.use('upload', function () {
-        layer = layui.layer;
-        layui.upload({
-            url: '${pageContext.request.contextPath}/FileTwo/importfileCar.do'
-            , elem: '#import' //指定原始元素，默认直接查找class="layui-upload-file"
-            , method: 'post' //上传接口的http类型
-            , success: function (res) {
-                layer.msg(res);
-            }
-        });
-    });
-</script>
+
 

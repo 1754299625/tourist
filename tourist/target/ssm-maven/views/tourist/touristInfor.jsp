@@ -55,7 +55,7 @@
                         <i class="layui-icon">&#xe615;</i> 搜索全部游客
                     </a>--%>
                     <a href="javascript:;" class="layui-btn layui-btn-small" id="exportAll">
-                        <i class="layui-icon">&#xe61d;</i> 导出游客列表
+                        <i class="layui-icon">&#xe61d;</i> 导出数据
                     </a>
                     <span>&nbsp;</span>
                     <input type="file" name="file1" lay-type="file" class="layui-upload-file" lay-title="导入游客信息" id="test">

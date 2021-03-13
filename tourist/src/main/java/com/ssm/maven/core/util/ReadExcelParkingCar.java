@@ -2,6 +2,7 @@ package com.ssm.maven.core.util;
 
 import com.ssm.maven.core.entity.ParkingCar;
 import org.apache.poi.hssf.usermodel.HSSFDataFormatter;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -15,9 +16,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class ReadExcelParkingCar {
     //总行数
@@ -79,9 +78,9 @@ public class ReadExcelParkingCar {
             //根据excel里面的内容读取客户信息
 
             //当excel是2003时
-            //wb = new HSSFWorkbook(is);
+            wb = new HSSFWorkbook(is);
             //当excel是2007时
-            wb = new XSSFWorkbook(is);
+//            wb = new XSSFWorkbook(is);
 
             //读取Excel里面客户的信息
             parkingCar = readExcelValue(wb);
@@ -124,6 +123,13 @@ public class ReadExcelParkingCar {
         List<ParkingCar> parkingCarList = new ArrayList<ParkingCar>();//声明一个对象集合
         ParkingCar parkingCar;//声明一个对象
 
+        Map<String, Integer> map = new HashMap<>();
+        map.put("临停车", 1);
+        map.put("月租车", 2);
+        map.put("员工车", 3);
+        map.put("免费车", 4);
+
+
         //循环Excel行数,从第二行开始。标题不入库
         for (int r = 1; r < totalRows; r++) {
             Row row = sheet.getRow(r);
@@ -137,20 +143,22 @@ public class ReadExcelParkingCar {
                 Cell cell = row.getCell(c);
                 if (null != cell) {
                     if (c == 0) {
-                        parkingCar.setLicense_car(getValue(cell));//得到行中第一个值
+                        parkingCar.setDay(simpleDateFormat_2.parse(getValue(cell)));// 日期
                     } else if (c == 1) {
-                        //System.out.println(getValue(cell) instanceof String);
-                        parkingCar.setEnter_time(simpleDateFormat.parse(getValue(cell)));//得到行中第二个值
+                        parkingCar.setLicense_car(getValue(cell));// 车牌号
                     } else if (c == 2) {
-                        parkingCar.setLeave_time(simpleDateFormat.parse(getValue(cell)));//得到行中第三个值
+                        try {
+                            parkingCar.setCar_type(map.get(getValue(cell)));// 类型
+                        }catch (Exception e){
+                            e.printStackTrace();
+                            parkingCar.setCar_type(1);
+                        }
                     } else if (c == 3) {
-                        parkingCar.setCar_type(Integer.parseInt(getValue(cell)));//得到行中第四个值
+                        parkingCar.setPark_id(getValue(cell));// 停车位编号
                     } else if (c == 4) {
-                        parkingCar.setPark_id(getValue(cell));//得到行中第五个值
+                        parkingCar.setEnter_time(simpleDateFormat.parse(getValue(cell)));// 进入时间
                     } else if (c == 5) {
-                        parkingCar.setDay(simpleDateFormat_2.parse(getValue(cell)));//得到行中第六个值
-                    } else if (c == 6) {
-                        parkingCar.setScience_id(Integer.parseInt(getValue(cell)));
+                        parkingCar.setLeave_time(simpleDateFormat.parse(getValue(cell)));// 开出时间
                     }
                 }
             }

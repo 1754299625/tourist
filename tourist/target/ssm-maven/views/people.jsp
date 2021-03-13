@@ -50,7 +50,7 @@
                     <i class="layui-icon">&#xe615;</i> 搜索全部景区
                 </a>
                 <a href="javascript:;" class="layui-btn layui-btn-small" id="export" style="margin-top: 4px;">
-                    <i class="layui-icon">&#xe62a;</i> 导出客流列表
+                    <i class="layui-icon">&#xe62a;</i> 导出数据
                 </a>
             </div>
 
@@ -96,10 +96,10 @@
 
         <td>
             <a href="javascript:;" data-name="{{item.enter_day}}" data-id="{{ item.code }}" data-opt="edit"
-               class="layui-btn layui-btn-mini" onclick="getTouristInfor(this)" style="z-index:-1">详情</a>
-            <a href="javascript:;" data-id="{{item.code}}" data-name="{{item.enter_day}}" data-opt="del"
-               class="layui-btn layui-btn-danger layui-btn-mini" onclick="deleteScenicarea(this)"
-               style="z-index:-1">删除</a>
+               class="layui-btn layui-btn-mini" onclick="getTouristInfor(this)" style="z-index:-1">明细数据</a>
+<%--            <a href="javascript:;" data-id="{{item.code}}" data-name="{{item.enter_day}}" data-opt="del"--%>
+<%--               class="layui-btn layui-btn-danger layui-btn-mini" onclick="deleteScenicarea(this)"--%>
+<%--               style="z-index:-1">删除</a>--%>
         </td>
     </tr>
     {{# }); }}
