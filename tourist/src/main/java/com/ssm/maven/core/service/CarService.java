@@ -63,4 +63,6 @@ public interface CarService {
     List<Integer> searchCarHLCInfor(CarCustom carCustom) throws Exception;
 
     Integer getCount(CarCustom carCustom) throws Exception;
+
+    List<ParkingCar> searchCarInfor(CarCustom carCondition) throws Exception;
 }

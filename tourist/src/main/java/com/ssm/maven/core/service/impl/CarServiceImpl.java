@@ -121,6 +121,11 @@ public class CarServiceImpl implements CarService {
         return parkingCarMapper.getCount(carCustom);
     }
 
+    @Override
+    public List<ParkingCar> searchCarInfor(CarCustom carCondition) throws Exception {
+        return parkingCarMapper.searchCarInfor(carCondition);
+    }
+
     public void insertCarBatch(List<ParkingCar> parkingCarList) {
         try {
             parkingCarMapper.insertCarBatch(parkingCarList);

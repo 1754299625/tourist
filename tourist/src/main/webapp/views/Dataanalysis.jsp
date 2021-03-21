@@ -148,35 +148,35 @@
 </script>
 
 
-<script>
-    function TestDI(e) {
-        layui.use('layer', function () {
-            var $ = layui.jquery,
-                layer = layui.layer;
+<%--<script>--%>
+<%--    function TestDI(e) {--%>
+<%--        layui.use('layer', function () {--%>
+<%--            var $ = layui.jquery,--%>
+<%--                layer = layui.layer;--%>
 
-            var enter_time = e.getAttribute('data-id');
-            var scenic_id = e.getAttribute('data-name');
-            var scenic_name = e.getAttribute('data-title');
+<%--            var enter_time = e.getAttribute('data-id');--%>
+<%--            var scenic_id = e.getAttribute('data-name');--%>
+<%--            var scenic_name = e.getAttribute('data-title');--%>
 
-            layer.open({
-                title: '天气舒适指数',
-                maxmin: true,
-                type: 2,
-                content: '${pageContext.request.contextPath}/Data/getDITable.do?enter_time=' + enter_time + "&&scenic_id=" + scenic_id + "&&scenic_name=" + scenic_name,
-                area: ['100%', '100%'],
-                resize: 'true',
-                moveOut: 'true',
-                success: function (layero, index) {
-                    $('.admin-table-page').hide();
-                },
-                cancel: function (index, layero) {
-                    $('.admin-table-page').show();
-                }
-            });
+<%--            layer.open({--%>
+<%--                title: '天气舒适指数',--%>
+<%--                maxmin: true,--%>
+<%--                type: 2,--%>
+<%--                content: '${pageContext.request.contextPath}/Data/getDITable.do?enter_time=' + enter_time + "&&scenic_id=" + scenic_id + "&&scenic_name=" + scenic_name,--%>
+<%--                area: ['100%', '100%'],--%>
+<%--                resize: 'true',--%>
+<%--                moveOut: 'true',--%>
+<%--                success: function (layero, index) {--%>
+<%--                    $('.admin-table-page').hide();--%>
+<%--                },--%>
+<%--                cancel: function (index, layero) {--%>
+<%--                    $('.admin-table-page').show();--%>
+<%--                }--%>
+<%--            });--%>
 
-        })
-    }
-</script>
+<%--        })--%>
+<%--    }--%>
+<%--</script>--%>
 
 
 
@@ -207,64 +207,64 @@
 
 
 
-<script>
-    function TestVLC(e) {
-        layui.use('layer', function () {
-            var $ = layui.jquery,
-                layer = layui.layer;
+<%--<script>--%>
+<%--    function TestVLC(e) {--%>
+<%--        layui.use('layer', function () {--%>
+<%--            var $ = layui.jquery,--%>
+<%--                layer = layui.layer;--%>
 
-            var enter_time = e.getAttribute('data-id');
-            var scenic_id = e.getAttribute('data-name');
+<%--            var enter_time = e.getAttribute('data-id');--%>
+<%--            var scenic_id = e.getAttribute('data-name');--%>
 
-            layer.open({
-                title: '客流承载量',
-                maxmin: true,
-                type: 2,
-                content: '${pageContext.request.contextPath}/DataTwo/getVLCTable.do?enter_time=' + enter_time + "&&scenic_id=" + scenic_id,
-                area: ['100%', '100%'],
-                resize: 'true',
-                moveOut: 'true',
-                success: function (layero, index) {
-                    // console.log(layero, index);
-                    $('.admin-table-page').hide();
-                },
-                cancel: function (index, layero) {
-                    $('.admin-table-page').show();
-                }
-            });
-        })
-    }
-</script>
-<script>
-    function TestCD(e) {
-        layui.use('layer', function () {
-            var $ = layui.jquery,
-                layer = layui.layer;
+<%--            layer.open({--%>
+<%--                title: '客流承载量',--%>
+<%--                maxmin: true,--%>
+<%--                type: 2,--%>
+<%--                content: '${pageContext.request.contextPath}/DataTwo/getVLCTable.do?enter_time=' + enter_time + "&&scenic_id=" + scenic_id,--%>
+<%--                area: ['100%', '100%'],--%>
+<%--                resize: 'true',--%>
+<%--                moveOut: 'true',--%>
+<%--                success: function (layero, index) {--%>
+<%--                    // console.log(layero, index);--%>
+<%--                    $('.admin-table-page').hide();--%>
+<%--                },--%>
+<%--                cancel: function (index, layero) {--%>
+<%--                    $('.admin-table-page').show();--%>
+<%--                }--%>
+<%--            });--%>
+<%--        })--%>
+<%--    }--%>
+<%--</script>--%>
+<%--<script>--%>
+<%--    function TestCD(e) {--%>
+<%--        layui.use('layer', function () {--%>
+<%--            var $ = layui.jquery,--%>
+<%--                layer = layui.layer;--%>
 
-            var enter_time = e.getAttribute('data-id');
-            var scenic_id = e.getAttribute('data-name');
+<%--            var enter_time = e.getAttribute('data-id');--%>
+<%--            var scenic_id = e.getAttribute('data-name');--%>
 
-            layer.open({
-                title: '总体舒适度',
-                maxmin: true,
-                type: 2,
-                content: '${pageContext.request.contextPath}/DataTwo/getCDTable.do?enter_time=' + enter_time + "&&scenic_id=" + scenic_id,
-                area: ['100%', '100%'],
-                resize: 'true',
-                moveOut: 'true',
-                success: function (layero, index) {
-                    // console.log(layero, index);
-                    $('.admin-table-page').hide();
-                },
-                cancel: function (index, layero) {
-                    $('.admin-table-page').show();
-                }
-            });
+<%--            layer.open({--%>
+<%--                title: '总体舒适度',--%>
+<%--                maxmin: true,--%>
+<%--                type: 2,--%>
+<%--                content: '${pageContext.request.contextPath}/DataTwo/getCDTable.do?enter_time=' + enter_time + "&&scenic_id=" + scenic_id,--%>
+<%--                area: ['100%', '100%'],--%>
+<%--                resize: 'true',--%>
+<%--                moveOut: 'true',--%>
+<%--                success: function (layero, index) {--%>
+<%--                    // console.log(layero, index);--%>
+<%--                    $('.admin-table-page').hide();--%>
+<%--                },--%>
+<%--                cancel: function (index, layero) {--%>
+<%--                    $('.admin-table-page').show();--%>
+<%--                }--%>
+<%--            });--%>
 
-        })
+<%--        })--%>
 
-    }
-</script>
+<%--    }--%>
+<%--</script>--%>
 
 <script>
     $(function () {

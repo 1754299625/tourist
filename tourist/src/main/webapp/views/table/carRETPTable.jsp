@@ -29,6 +29,7 @@
         var $ = layui.jquery;
         var layer = layui.layer;
 
+
         var myChart = echarts.init(document.getElementById('main1'));
         var option = {
             title: {

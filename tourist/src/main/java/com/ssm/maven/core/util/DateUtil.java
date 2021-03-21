@@ -9,6 +9,9 @@ import java.util.Date;
  * @date 2017-3-1
  */
 public class DateUtil {
+    public static String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
+    public static String YYYY_MM_DD = "yyyy-MM-dd";
+    public static String YYYY_MM_DD_hh_MM_SS = "yyyy-MM-dd hh:mm:ss";
 
     public static String formatDate(Date date, String format) {
         String result = "";
@@ -30,7 +33,7 @@ public class DateUtil {
 
     public static String getCurrentDateStr() throws Exception {
         Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat(YYYY_MM_DD_HH_MM_SS);
         return sdf.format(date);
     }
 }

@@ -53,4 +53,6 @@ public interface ParkingCarMapper {
     List<Integer> searchCarHLCInfor(CarCustom carCustom);
 
     Integer getCount(CarCustom carCustom);
+
+    public List<ParkingCar> searchCarInfor(CarCustom carCustom) throws Exception;
 }
